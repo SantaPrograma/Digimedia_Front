@@ -1,5 +1,6 @@
 import Link from "next/link";
-import "./stylesHeader.css"
+import logo1 from "@/public/headerFooter/logoblanco2.webp"
+import Image from "next/image";
 
 export default function Header() {
     return (
@@ -8,7 +9,10 @@ export default function Header() {
                 {/* Logo */}
                 <div className="logoHeader p-2">
                     <Link href="/">
-                        <img src="/public/img/headerFooter/logoblanco2.webp" alt="Digimedia" className="w-[190px]" />
+                        <Image
+                        src = {logo1}
+                        alt="Digimedia"
+                        className="w-[190px]" />
                     </Link>
                 </div>
 
