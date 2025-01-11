@@ -2,6 +2,6 @@
 
 export default function Footer() {
     return (
-        <div class="flex justify-center"></div>
+        <div className="flex justify-center"></div>
     );
 }
