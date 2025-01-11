@@ -1,0 +1,64 @@
+/* Menu desplegable */
+.menuHorizontal li:hover .menuVertical {
+    display: block;
+}
+
+/* Responsivo */
+#menucheckbox {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .menuHorizontal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        margin-top: 60px;
+        background-color: #7B22B3;
+        z-index: 999;
+    }
+
+    #menucheckbox:checked ~ .menuHorizontal {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .menuVertical {
+        width: 100%;
+        position: sticky;
+    }
+
+    .menuHorizontal li {
+        width: 100%;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .seccionesHeader label {
+        display: flex;
+        align-items: center;
+    }
+
+    .menuIcono {
+        width: 25px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .logoHeader a img {
+        width: 140px;
+    }
+
+    .menuHorizontal {
+        margin-top: 50px;
+        font-size: 10px;
+    }
+}

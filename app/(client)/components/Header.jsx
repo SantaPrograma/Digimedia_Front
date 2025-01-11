@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "./stylesHeader.css"
 
 export default function Header() {
     return (
@@ -33,6 +34,12 @@ export default function Header() {
                 </li>
                 <li>
                     <Link href="/login">Ingresar</Link>
+                </li>
+                <li>
+                    <Link href="/dashboard/home">Ingresar</Link>
+                </li>
+                <li>
+                    <Link href="/dashboard/users">Ingresar</Link>
                 </li>
             </ul>
         </header>
