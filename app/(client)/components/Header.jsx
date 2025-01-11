@@ -34,6 +34,12 @@ export default function Header() {
                 <li>
                     <Link href="/login">Ingresar</Link>
                 </li>
+                <li>
+                    <Link href="/dashboard/home">Ingresar</Link>
+                </li>
+                <li>
+                    <Link href="/dashboard/users">Ingresar</Link>
+                </li>
             </ul>
         </header>
     );

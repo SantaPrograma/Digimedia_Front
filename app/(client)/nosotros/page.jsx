@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Page() {
     return (
-        <div className="sobre-nosotros">
+        <div className="sobre-nosotros ">
             <div className="contenido">
                 <h2 className="titulo">Sobre Nosotros</h2>
                 <p className="descripcion">
