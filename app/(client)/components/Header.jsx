@@ -1,5 +1,5 @@
 import Link from "next/link";
-import "./stylesHeader.css" 
+import "./stylesHeader.css"
 
 export default function Header() {
     return (
@@ -32,7 +32,7 @@ export default function Header() {
                                 <li><Link href="/servicios/desing-desarrollo" className="text-white py-2 px-4">Diseño y Desarrollo Web</Link></li>
                                 <li><Link href="/servicios/gestion-redes" className="text-white py-2 px-4">Gestión de Redes Sociales</Link></li>
                                 <li><Link href="/servicios/marketing-gestion" className="text-white py-2 px-4">Marketing y Gestión Digital</Link></li>
-                                <li><Link href="/servicios/branding-desing" className="text-white py-2 px-4">Branding y Diseño</Link></li>
+                                <li><Link href="/servicio/branding-desing" className="text-white py-2 px-4">Branding y Diseño</Link></li>
                             </ul>
                         </li>
                         <li className="flex items-center">
