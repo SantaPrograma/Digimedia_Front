@@ -1,6 +1,8 @@
 import Link from "next/link";
 import logo1 from "@/public/headerFooter/logoblanco2.webp"
+import menu from "@/public/headerFooter/menu.webp"
 import Image from "next/image";
+import "./Header.css"
 
 export default function Header() {
     return (
@@ -20,7 +22,10 @@ export default function Header() {
                 <div className="seccionesHeader flex items-center">
                     <input type="checkbox" id="menucheckbox" className="hidden" />
                     <label htmlFor="menucheckbox" className="flex items-center cursor-pointer">
-                        <img src="/public/img/headerFooter/menu.webp" alt="menú" className="w-[25px]" />
+                        <Image src={menu} 
+                        alt="menú"
+                        id="menucheckbox"
+                        className="w-[25px]" />
                     </label>
                     <ul className="menuHorizontal flex list-none m-0 items-center pl-0">
                         <li className="flex items-center">
@@ -32,7 +37,7 @@ export default function Header() {
                             <p className="block text-white font-bold text-sm py-[15px] px-[10px] w-full">
                                 Servicios &#9660;
                             </p>
-                            <ul className="menuVertical absolute bg-[#7B22B3] top-[50px] left-0 right-0 hidden flex-col z-10 list-none p-0">
+                            <ul className="menuVertical">
                                 <li><Link href="/servicios/desing-desarrollo" className="text-white py-2 px-4">Diseño y Desarrollo Web</Link></li>
                                 <li><Link href="/servicios/gestion-redes" className="text-white py-2 px-4">Gestión de Redes Sociales</Link></li>
                                 <li><Link href="/servicios/marketing-gestion" className="text-white py-2 px-4">Marketing y Gestión Digital</Link></li>

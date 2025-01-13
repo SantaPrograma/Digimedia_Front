@@ -1,15 +1,47 @@
 /* Menu desplegable */
+
+.seccionesHeader a:hover, .seccionesHeader p:hover{
+    background-color: #333333b4;
+}
+
 .menuHorizontal li:hover .menuVertical {
     display: block;
 }
 
-/* Responsivo */
-#menucheckbox {
+.menuVertical {
     display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 200px;
+    z-index: 1000;
+    background-color: #7B22B3;
+    top: 50px;
+    list-style: none;
+    
+}
+
+.menuHorizontal a, .menuHorizontal p{
+    text-decoration: none;
+    display: block;
+    color: white;
+    font-size: 12;
+    font-weight: bold;
+    padding: 15px;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+}
+
+/* Responsivo */
+.menuIcono {
+    width: 25px;
 }
 
 @media screen and (max-width: 700px) {
     .menuHorizontal {
+        display: none;
+        flex-direction: column;
         position: absolute;
         top: 0;
         left: 0;
@@ -47,9 +79,6 @@
         align-items: center;
     }
 
-    .menuIcono {
-        width: 25px;
-    }
 }
 
 @media screen and (max-width: 400px) {
