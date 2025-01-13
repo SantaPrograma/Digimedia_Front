@@ -1,7 +1,7 @@
 
 
 
-export default function Principal() {
+export default function Mensaje() {
     return (
         <>
 

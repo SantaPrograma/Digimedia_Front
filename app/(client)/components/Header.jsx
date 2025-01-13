@@ -11,7 +11,12 @@ export default function Header() {
                 {/* Logo */}
                 <div className="logoHeader p-2">
                     <Link href="/">
-                        <img src="/public/img/headerFooter/logoblanco2.webp" alt="Digimedia" className="w-[190px]" />
+                        <Image
+                            src={logo1}
+                            alt="Digimedia"
+                            className="w-[190px]"
+                            priority={true}
+                        />
                     </Link>
                 </div>
 
@@ -19,10 +24,10 @@ export default function Header() {
                 <div className="seccionesHeader flex items-center">
                     <input type="checkbox" id="menucheckbox" className="hidden" />
                     <label htmlFor="menucheckbox" className="flex items-center cursor-pointer">
-                        <Image src={menu} 
-                        alt="menú"
-                        id="menucheckbox"
-                        className="w-[25px]" />
+                        <Image src={menu}
+                            alt="menú"
+                            id="menucheckbox"
+                            className="w-[25px]" />
                     </label>
                     <ul className="menuHorizontal flex list-none m-0 items-center pl-0">
                         <li className="flex items-center">
