@@ -27,11 +27,7 @@ export default function Page() {
             </div>
 
             <div className="imagen">
-                <img
-                    src='./imagenes-nosotros/infoNosotros.webp'
-                    alt="Equipo-trabajando"
-                    className="imagen-equipo"
-                />
+              
             </div>
         </div>
     );
