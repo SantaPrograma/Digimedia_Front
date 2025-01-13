@@ -11,7 +11,7 @@ export default function Header() {
                 {/* Logo */}
                 <div className="logoHeader p-2">
                     <Link href="/">
-                        <img src="/public/img/headerFooter/logoblanco2.webp" alt="Digimedia" className="w-[190px]" />
+                        <Image src={logo1} alt="Digimedia" className="w-[190px]" />
                     </Link>
                 </div>
 
