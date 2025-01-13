@@ -11,12 +11,7 @@ export default function Header() {
                 {/* Logo */}
                 <div className="logoHeader p-2">
                     <Link href="/">
-                        <Image
-                            src={logo1}
-                            alt="Digimedia"
-                            className="w-[190px]"
-                            priority={true}
-                        />
+                        <img src="/public/img/headerFooter/logoblanco2.webp" alt="Digimedia" className="w-[190px]" />
                     </Link>
                 </div>
 
@@ -57,8 +52,8 @@ export default function Header() {
                             </p>
                             <ul className="menuVertical absolute bg-[#7B22B3] top-[50px] left-0 right-0 hidden flex-col z-10 list-none p-0">
                                 <li><Link href="/blog" className="text-white py-2 px-4">Blog</Link></li>
-                                <li><Link href="/FQA" className="text-white py-2 px-4">FQA</Link></li>
-                                <li><Link href="/contactanos" className="text-white py-2 px-4">Contacto</Link></li>
+                                <li><Link href="/preguntas" className="text-white py-2 px-4">FQA</Link></li>
+                                <li><Link href="/contacto" className="text-white py-2 px-4">Contacto</Link></li>
                             </ul>
                         </li>
                         <li className="flex items-center">
