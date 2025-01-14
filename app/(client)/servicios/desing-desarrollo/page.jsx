@@ -48,7 +48,7 @@ export default function Page() {
 
       <Description
         title="Diseño y Desarrollo Web"
-        text="Ofrecemos diseño y desarrollo web para ayudar a tu negocio a destacar en línea. Creamos sitios atractivos y funcionales que reflejan tu marca y mejoran la experiencia del usuario."
+        text="Consiste en la habilidad de presentar contenido de manera organizada en una página web con el objetivo de brindar una experiencia óptima al usuario. El diseño se centra en la estética visual, mientras que el desarrollo se dedica a la construcción y programación del sitio web. Ambos aspectos colaboran estrecha- mente para asegurar el éxito del sitio web."
       />
 
       <Servicios servicios={servicios} />
