@@ -47,14 +47,14 @@ export default function Page() {
       />
 
       <Description
-        title="Branding y Diseño"
-        text="Juntos, crean una experiencia coherente y memorable para los clientes, construyendo una conexión emocional y diferenciando la marca en el mercado. Mientras que el branding establece la identidad, valores y personalidad de la marca, el diseño se encarga de transmitir estos elementos de manera visual a través de elementos como el logo, los colores, la tipografía y el estilo gráﬁco."
+        title="Gestión de Redes Sociales"
+        text="La gestión de redes sociales es el proceso de administrar y optimizar la presencia de una marca en plataformas como Facebook, Instagram, Twitter, etc. Ayuda a tu marca a crear una voz consistente, interactuar con tu audiencia, aumentar el compromiso y la visibilidad, así como impulsar el tráﬁco y las conversiones hacia tu negocio."
       />
 
       <Servicios servicios={servicios} />
 
       <Contactanos
-        text="Conecta de manera creativa e innovadora con tu audiencia"
+        text="Deja que tus redes estén en otro nivel"
         iconLeft={iconLeft}
         iconRight={iconRight}
       />
