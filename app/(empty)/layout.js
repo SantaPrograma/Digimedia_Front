@@ -19,7 +19,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
-      <h1>layout empty</h1>
       {children}
     </>
 
