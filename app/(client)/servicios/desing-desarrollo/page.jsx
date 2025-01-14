@@ -1,4 +1,5 @@
 // Componentes
+import Description from '../components/Description';
 import Main from '../components/Main';
 
 // Imágenes
@@ -12,6 +13,11 @@ export default function Page() {
         subtitle="¡Transforma tu presencia online!"
         text="Ofrecemos diseño y desarrollo web para ayudar a tu negocio a destacar en línea. Creamos sitios atractivos y funcionales que reflejan tu marca y mejoran la experiencia del usuario."
         image={imgMain}
+      />
+
+      <Description
+        title="Diseño y Desarrollo Web"
+        text="Ofrecemos diseño y desarrollo web para ayudar a tu negocio a destacar en línea. Creamos sitios atractivos y funcionales que reflejan tu marca y mejoran la experiencia del usuario."
       />
     </>
   );
