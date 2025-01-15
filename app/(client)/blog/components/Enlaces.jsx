@@ -101,28 +101,23 @@ export default function Enlaces() {
     let [page, setPage] = useState(1)
     let [datashow, setData] = useState([])
     let [searchTerm, setSearchTerm] = useState("");
-
-    let dataLt = data.length
+    let [dataLt, setDataLt] = useState(data.length)
 
     useEffect(() => {
-        const filteredData = searchTerm !== "" ? data.filter(
+        const filteredData = searchTerm !== "" ? articlesView(page, data.filter(
             (article) =>
                 article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 article.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 article.description.toLowerCase().includes(searchTerm.toLowerCase())
-        ) : articlesView(page);
-
-        console.log(data.filter(
-            (article) =>
-                article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                article.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                article.description.toLowerCase().includes(searchTerm.toLowerCase())
-        ));
-
+        )) : articlesView(page);
 
         setData(filteredData);
 
     }, [searchTerm, page]);
+
+    useEffect(() => {
+        setPage(1);
+    }, [searchTerm]);
 
     function buttonNext() {
         if (page * 4 < dataLt) {
@@ -138,6 +133,8 @@ export default function Enlaces() {
 
 
     function articlesView(currentPage, dataOld = data) {
+        setDataLt(dataOld.length)
+
         const start = (currentPage - 1) * 4;
         const end = start + 4;
         return dataOld.slice(start, end);
@@ -156,11 +153,13 @@ export default function Enlaces() {
 
                                 <img src={`/blog/${image}`} className="w-full h-[150px] object-cover" />
 
-                                <h3 className="text-lg font-bold text-center my-6">{title}</h3>
+                                <div className="h-20 px-4 flex flex-col justify-center items-center">
+                                    <h3 className="text-lg  text-center">{title}</h3>
+                                </div>
 
-                                <p className="text-sm ml-4 bg-[rgba(123,34,179)] rounded-xl text-white py-2 font-bold px-4 w-max">{category}</p>
+                                <p className="text-sm  ml-4 bg-[rgba(123,34,179)] rounded-xl text-white py-2 font-bold px-4 w-max">{category}</p>
 
-                                <div className="flex flex-col mt-4 justify-between gap-6 h-[100%]">
+                                <div className="flex flex-col mt-4 justify-between gap-6 flex-1">
                                     <p className="px-4">{description}</p>
 
                                     <a href={url} target="_blank" className="text-white font-bold py-3 text-center bg-[#5c1787]">
