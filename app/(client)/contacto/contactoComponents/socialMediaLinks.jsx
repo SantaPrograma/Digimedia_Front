@@ -1,6 +1,16 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 
 const SocialMediaLinks = () => (
+  <motion.div
+    className="formContainer"
+    initial={{ opacity: 0, y: "-100%" }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1.5, delay: 1 }}
+    style={{ overflow: "hidden" }}
+  >
     <div className="tarjeta-redes">
       <h3>Conéctate con nosotros</h3>
       <div className="contenedor-redes">
@@ -36,7 +46,7 @@ const SocialMediaLinks = () => (
         </div>
       </div>
     </div>
-  );
-  
-  export default SocialMediaLinks;
-  
+  </motion.div>
+);
+
+export default SocialMediaLinks;
