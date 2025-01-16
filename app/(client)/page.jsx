@@ -1,11 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import bannerImg from "@/public/home/inicio.webp"
-import "@/app/(client)/Home_Components/Home.css"
+import bannerImg from "@/public/image-home/inicio.webp"
+import "./Home_Components/Home.css"
+import Services from './Home_Components/servicios'
+import Opiniones from './Home_Components/testimonios'
 
 export default function Home() {
   return(
+    <>
       <section className="relative h-screen w-full">
         <Image src={bannerImg} alt="Banner" className="relative h-screen w-full" />
         <div className="mb-[200px] absolute inset-0 flex items-end justify-start">
@@ -21,11 +24,13 @@ export default function Home() {
             <Link href="/contactanos" className="btn-grad text-white bg-[#7B22B3] px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-[#682199] transition-all duration-300 transform hover:-translate-y-1">
               ¡Contáctanos!
               
-            </Link>
+            </Link> 
             </div>
           </div>
         </div>
-  </section>
-
+      </section>
+      <Services />
+      <Opiniones />
+    </>
   );
 }
