@@ -21,7 +21,7 @@ export default function Principal() {
                 <Image
                     src={logoMb}
                     alt="Logo de la pagina"
-                    className="block sm:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover w-[100%] inset-0 z-0"
+                    className="block sm:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover h-full w-[100%] inset-0 z-0"
                 />
 
                 <div className="absolute flex justify-center items-center z-1 inset-0 w-[100%] h-[100%] bg-black bg-opacity-50">
