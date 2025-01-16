@@ -145,15 +145,15 @@ export default function Enlaces() {
 
             <section className=" bg-[#eeeeee] p-8">
 
-                <div className="flex flex-col  lg:flex-row gap-6 justify-between">
-                    <div className="flex-[0.7] grid gap-6 grid-cols-2 ">
+                <div className="flex flex-col-reverse lg:flex-row gap-6 justify-between">
+                    <div className="flex-[0.7] grid gap-6 grid-cols-1 md:grid-cols-2 ">
 
                         {datashow.map(({ image, title, category, description, url }, index) => (
                             <article key={index} className="rounded-2xl shadow-xl bg-white overflow-hidden flex flex-col">
 
                                 <img src={`/blog/${image}`} className="w-full h-[150px] object-cover" />
 
-                                <div className="h-20 px-4 flex flex-col justify-center items-center">
+                                <div className="lg:h-20 px-4 my-4 flex flex-col justify-center items-center">
                                     <h3 className="text-lg  text-center">{title}</h3>
                                 </div>
 
@@ -172,7 +172,7 @@ export default function Enlaces() {
 
                     </div>
 
-                    <aside className="flex-[0.3] flex flex-col gap-5 rounded-xl shadow-lg bg-[#810cfffe] h-[280px] p-6 mx-auto max-w-[500px]">
+                    <aside className="flex-[0.3] w-full flex flex-col gap-5 rounded-xl shadow-lg bg-[#810cfffe] h-[280px] p-6 mx-auto ">
 
                         <input
                             type="text" placeholder="Buscar ...."
