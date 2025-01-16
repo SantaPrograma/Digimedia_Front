@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import logo from '@/public/Img-nosotros/infoNosotros.webp';
 import logo1 from '@/public/Img-nosotros/NOSOTROS_1680_1050.webp';
+import "./page.css";
 
 const Nosotros = () => {
     const mensaje = "Hola, vengo de la pagina web de Digimedia, deseo mas información! 👌";
@@ -11,9 +12,7 @@ const Nosotros = () => {
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Hero Section */}
             <div className="relative h-[400px] overflow-hidden">
-                {/* Background Image */}
                 <Image
                     src={logo1}
                     alt="Background"

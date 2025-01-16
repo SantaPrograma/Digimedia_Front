@@ -23,24 +23,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sección izquierda con fondo degradado */}
-      <div className="w-1/2 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-        <Image src="/login/sesion.png" alt="Inicio de sesión" width={300} height={300} />
+      <div className="lg:w-1/2 w-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center p-6 lg:p-0">
+        <Image
+          src="/login/sesion.png"
+          alt="Inicio de sesión"
+          width={300}
+          height={300}
+          className="w-full max-w-[200px] lg:max-w-[300px] h-auto"
+        />
       </div>
 
       {/* Sección derecha con el formulario */}
-      <div className="w-1/2 bg-gray-100 flex flex-col items-center justify-center relative">
+      <div className="lg:w-1/2 w-full bg-gray-100 flex flex-col items-center justify-center relative p-6">
         {/* Botón regresar */}
         <a href="/" className="absolute top-4 right-4">
-          <button className="flex items-center gap-2 bg-gray-200 p-2 rounded hover:bg-gray-300 shadow">
-            <img src="/login/salida.png" alt="icono" className="w-6 h-6" />
+          <button className="flex items-center gap-2 bg-gray-200 p-2 rounded hover:bg-gray-300 shadow text-sm">
+            <img src="/login/salida.png" alt="icono" className="w-4 h-4 lg:w-6 lg:h-6" />
             Regresar
           </button>
         </a>
 
         {/* Formulario */}
-        <div className="bg-white p-10 rounded-lg shadow-lg w-96">
+        <div className="bg-white p-6 lg:p-10 rounded-lg shadow-lg w-full max-w-md">
           <h1 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h1>
           {error && <p className="text-red-500 mb-4 text-center">Usuario o contraseña incorrectos.</p>}
           <form onSubmit={handleSubmit} className="space-y-4">
