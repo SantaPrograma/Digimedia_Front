@@ -1,12 +1,28 @@
+'use client';
+
+import { useRef } from 'react';
+
 import Image from 'next/image';
 
 import logo from '@/public/servicios/logo-modal.webp';
 
 export default function ModalScroll({ text, fondo, title }) {
+  const modalRef = useRef(null);
+
+  const hideModal = () => {
+    modalRef.current.classList.add('hidden');
+  };
+
   return (
-    <div className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50">
+    <div
+      ref={modalRef}
+      onClick={hideModal}
+      className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50"
+    >
       <div className="bg-black flex relative text-white rounded-2xl overflow-hidden">
-        <button className="absolute top-4 right-4">X</button>
+        <button onClick={hideModal} className="absolute top-4 right-4">
+          X
+        </button>
         <div className="relative">
           <Image className="h-full" src={fondo} alt="" />
           <Image className="absolute top-4 left-4" src={logo} alt="" />
