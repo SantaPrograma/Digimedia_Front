@@ -3,6 +3,7 @@ import Servicios from '../components/Servicios';
 import Contactanos from '../components/Contactanos';
 import Description from '../components/Description';
 import Main from '../components/Main';
+import ModalScroll from '../components/ModalScroll';
 
 // Imágenes
 import imgMain from '@/public/servicios/desarrollo/img-main.png';
@@ -12,6 +13,9 @@ import icon1 from '@/public/servicios/desarrollo/icon1.svg';
 import icon2 from '@/public/servicios/desarrollo/icon2.svg';
 import icon3 from '@/public/servicios/desarrollo/icon3.svg';
 import icon4 from '@/public/servicios/desarrollo/icon4.svg';
+
+// Modal
+import fondoModal from '@/public/servicios/desarrollo/modal-scroll/fondo.webp';
 
 export default function Page() {
   const servicios = [
@@ -39,6 +43,12 @@ export default function Page() {
 
   return (
     <>
+      <ModalScroll
+        text="¡DESTACA TU NEGOCIO!"
+        fondo={fondoModal}
+        title="OBTÉN UNA ASESORÍA ¡GRATIS!"
+      />
+
       <Main
         title="DISEÑO Y DESARROLLO WEB"
         subtitle="¡Transforma tu presencia online!"
