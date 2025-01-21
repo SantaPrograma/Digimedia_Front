@@ -62,7 +62,7 @@ function Input({ label, type, name }) {
         {label}
       </label>
       <input
-        className="p-2 rounded-md h-12 grow"
+        className="p-2 rounded-md h-12 grow text-black"
         id={name}
         name={name}
         type={type}

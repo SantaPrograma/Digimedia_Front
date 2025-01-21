@@ -77,7 +77,12 @@ function Input({ label, type, name }) {
       <label className="font-semibold" htmlFor={name}>
         {label}
       </label>
-      <input className="p-2 rounded-md" id={name} name={name} type={type} />
+      <input
+        className="p-2 rounded-md text-black"
+        id={name}
+        name={name}
+        type={type}
+      />
     </div>
   );
 }
