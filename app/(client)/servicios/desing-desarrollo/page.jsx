@@ -4,6 +4,7 @@ import Contactanos from '../components/Contactanos';
 import Description from '../components/Description';
 import Main from '../components/Main';
 import ModalScroll from '../components/ModalScroll';
+import ModalButton from '../components/ModalButton';
 
 // Imágenes
 import imgMain from '@/public/servicios/desarrollo/img-main.png';
@@ -15,7 +16,8 @@ import icon3 from '@/public/servicios/desarrollo/icon3.svg';
 import icon4 from '@/public/servicios/desarrollo/icon4.svg';
 
 // Modal
-import fondoModal from '@/public/servicios/desarrollo/modal-scroll/fondo.webp';
+import fondoModalScroll from '@/public/servicios/desarrollo/modal-scroll/fondo.webp';
+import fondoModalButton from '@/public/servicios/desarrollo/modal-button/imagen.webp';
 
 export default function Page() {
   const servicios = [
@@ -45,8 +47,14 @@ export default function Page() {
     <>
       <ModalScroll
         text="¡DESTACA TU NEGOCIO!"
-        fondo={fondoModal}
+        fondo={fondoModalScroll}
         title="OBTÉN UNA ASESORÍA ¡GRATIS!"
+      />
+
+      <ModalButton
+        title="Lleva tu negocio al siguiente nivel online"
+        fondo={fondoModalButton}
+        text="¡Haz tu sitio web realidad, es GRATIS!"
       />
 
       <Main
