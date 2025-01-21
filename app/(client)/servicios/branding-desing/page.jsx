@@ -5,13 +5,13 @@ import Description from '../components/Description';
 import Main from '../components/Main';
 
 // Imágenes
-import imgMain from '@/public/servicios/gestion/img-main.png';
-import iconLeft from '@/public/servicios/gestion/icon-left.svg';
-import iconRight from '@/public/servicios/gestion/icon-right.svg';
-import icon1 from '@/public/servicios/gestion/icon1.svg';
-import icon2 from '@/public/servicios/gestion/icon2.svg';
-import icon3 from '@/public/servicios/gestion/icon3.svg';
-import icon4 from '@/public/servicios/gestion/icon4.svg';
+import imgMain from '@/public/servicios/branding/img-main.png';
+import iconLeft from '@/public/servicios/branding/icon-left.png';
+import iconRight from '@/public/servicios/branding/icon-right.png';
+import icon1 from '@/public/servicios/branding/icon1.svg';
+import icon2 from '@/public/servicios/branding/icon2.svg';
+import icon3 from '@/public/servicios/branding/icon3.svg';
+import icon4 from '@/public/servicios/branding/icon4.svg';
 
 export default function Page() {
   const servicios = [
