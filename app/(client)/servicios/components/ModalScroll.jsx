@@ -35,7 +35,12 @@ export default function ModalScroll({ text, fondo, title }) {
       onClick={hideModal}
       className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
     >
-      <div className="bg-black flex relative text-white rounded-2xl overflow-hidden">
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="bg-black flex relative text-white rounded-2xl overflow-hidden"
+      >
         <button onClick={hideModal} className="absolute top-4 right-4">
           X
         </button>
