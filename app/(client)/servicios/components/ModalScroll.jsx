@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import Image from 'next/image';
 
@@ -13,11 +13,27 @@ export default function ModalScroll({ text, fondo, title }) {
     modalRef.current.classList.add('hidden');
   };
 
+  let displayed = false;
+
+  useEffect(() => {
+    window.addEventListener('scroll', (e) => {
+      if (!displayed) {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight
+        ) {
+          modalRef.current.classList.remove('hidden');
+          displayed = true;
+        }
+      }
+    });
+  }, []);
+
   return (
     <div
       ref={modalRef}
       onClick={hideModal}
-      className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50"
+      className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
     >
       <div className="bg-black flex relative text-white rounded-2xl overflow-hidden">
         <button onClick={hideModal} className="absolute top-4 right-4">
