@@ -3,6 +3,8 @@ import Servicios from '../components/Servicios';
 import Contactanos from '../components/Contactanos';
 import Description from '../components/Description';
 import Main from '../components/Main';
+import ModalScroll from '../components/ModalScroll';
+import ModalButton from '../components/ModalButton';
 
 // Imágenes
 import imgMain from '@/public/servicios/marketing/img-main.png';
@@ -12,6 +14,10 @@ import icon1 from '@/public/servicios/marketing/icon1.svg';
 import icon2 from '@/public/servicios/marketing/icon2.svg';
 import icon3 from '@/public/servicios/marketing/icon3.svg';
 import icon4 from '@/public/servicios/marketing/icon4.svg';
+
+// Modal
+import fondoModalScroll from '@/public/servicios/marketing/modal-scroll/fondo.webp';
+import fondoModalButton from '@/public/servicios/marketing/modal-button/imagen.webp';
 
 export default function Page() {
   const servicios = [
@@ -39,6 +45,18 @@ export default function Page() {
 
   return (
     <>
+      <ModalScroll
+        text="¡INCREMENTA TUS VENTAS!"
+        fondo={fondoModalScroll}
+        title="HAZLO Y CUMPLE TUS SUEÑOS ¡ASESORÍA GRATIS!"
+      />
+
+      <ModalButton
+        title="¡EXPLOTA EL CONTENIDO DE TUS REDES!"
+        fondo={fondoModalButton}
+        text="¡Haz tu sitio web realidad, es GRATIS!"
+      />
+
       <Main
         title="MARKETING Y GESTIÓN DIGITAL"
         subtitle="¡Impulsa tu marca al éxito digital!"
