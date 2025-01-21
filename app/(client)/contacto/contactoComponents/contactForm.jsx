@@ -12,21 +12,43 @@ const ContactForm = () => {
       style={{ overflow: "hidden" }}
     >
       <form action="backend" method="post">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <input type="text" id="name" name="name" placeholder="Nombre" required />
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
           <input type="email" id="email" name="email" placeholder="Email" required />
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
+        >
           <input type="tel" id="phone" name="phone" placeholder="Número" required />
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.2 }}
+        >
           <textarea id="message" name="message" placeholder="Mensaje" rows="10" required></textarea>
-        </div>
-        <div>
-          <button type="submit">Enviar mensaje <span className="icon">📩</span></button>
-        </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
+        >
+          <button type="submit">
+            Enviar mensaje <span className="icon">📩</span>
+          </button>
+        </motion.div>
       </form>
     </motion.div>
   );
