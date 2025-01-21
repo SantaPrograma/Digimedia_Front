@@ -44,8 +44,12 @@ export default function ModalScroll({ text, fondo, title }) {
         <button onClick={hideModal} className="absolute top-4 right-4">
           X
         </button>
-        <div className="relative">
-          <Image className="h-full" src={fondo} alt="" />
+        <div className="relative w-64 overflow-hidden flex justify-center">
+          <Image
+            className="w-auto max-w-none max-h-[540px]"
+            src={fondo}
+            alt=""
+          />
           <Image className="absolute top-4 left-4" src={logo} alt="" />
           <p className="absolute bottom-10 right-6 text-3xl font-semibold text-right">
             {text}

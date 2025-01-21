@@ -47,7 +47,7 @@ export default function ModalClick({ text, fondo, title }) {
           </form>
         </div>
         <div className="flex flex-col justify-center items-center gap-8">
-          <Image src={fondo} alt="" />
+          <Image className="max-w-60 max-h-52 w-auto" src={fondo} alt="" />
           <p className="font-medium max-w-48 text-center">{text}</p>
         </div>
       </div>
