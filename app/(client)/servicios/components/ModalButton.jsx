@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function ModalClick({ text, fondo, title }) {
   const modalRef = useRef(null);
@@ -10,13 +10,26 @@ export default function ModalClick({ text, fondo, title }) {
     modalRef.current.classList.add('hidden');
   };
 
+  useEffect(() => {
+    window.addEventListener('click', (e) => {
+      if (e.target.id == 'modal-button') {
+        modalRef.current.classList.remove('hidden');
+      }
+    });
+  }, []);
+
   return (
     <div
       ref={modalRef}
       onClick={hideModal}
-      className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 "
+      className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
     >
-      <div className="bg-black flex relative text-white rounded-2xl overflow-hidden bg-gradient-to-bl from-[#B721FF] to-[#21D4FD] p-8 gap-8">
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="bg-black flex relative text-white rounded-2xl overflow-hidden bg-gradient-to-bl from-[#B721FF] to-[#21D4FD] p-8 gap-8"
+      >
         <button onClick={hideModal} className="absolute top-4 right-4">
           X
         </button>
