@@ -1,7 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import bannerImg from "@/public/image-home/inicio.webp"
 import "./components/Home_Components/Home.css"
 import Services from './components/Home_Components/servicios'
 import Opiniones from './components/Home_Components/testimonios'
@@ -11,7 +9,7 @@ export default function Home() {
   return (
     <>
       <section className="relative h-screen w-full">
-        <Image src={bannerImg} alt="Banner" className="relative h-screen w-full" />
+        <img src="/image-home/inicio.webp" alt="Banner" className="relative h-screen w-full" />
         <div className="mb-[200px] absolute inset-0 flex items-end justify-start">
           <div className="flex flex-col items-start space-y-4">
             <div className="clip-path-polygon text-white relative text-left h-[200px] w-[700px] bg-[rgba(123,34,179,0.5)] 

@@ -1,11 +1,6 @@
 
 import React from 'react';
-import Image from 'next/image';
 import './services.css'
-import icono1 from '@/public/image-home/icon1.svg'
-import icono2 from '@/public/image-home/icon2.svg'
-import icono3 from '@/public/image-home/icon3.svg'
-import icono4 from '@/public/image-home/icon4.svg'
 
 function services(){
     return(
@@ -18,22 +13,22 @@ function services(){
                 <div className="services-4">
                     <div className="services">
                         <div className="service">
-                            <Image src={icono1} alt="" />
+                            <img src="/image-home/icon1.svg" alt="" />
                             <h3>Diseño y Desarrollo Web</h3>
                             <p>"Creamos sitios atractivos y funcionales que represetan tu marca"</p>
                         </div>
                         <div className="service">
-                            <Image src={icono2} alt="" />
+                            <img src="/image-home/icon2.svg" alt="" />
                             <h3>Gestión de Redes Sociales</h3>
                             <p>"Aumenta tu presencia online y conectamos con tu audiencia"</p>
                         </div>
                         <div className="service">
-                            <Image src={icono3} alt="" />
+                            <img src="/image-home/icon3.svg" alt="" />
                             <h3>Branding y Diseño</h3>
                             <p>"Construimos una identidad visual fuerte y memorable"</p>
                         </div>
                         <div className="service">
-                            <Image src={icono4} alt="" />
+                            <img src="/image-home/icon4.svg" alt="" />
                             <h3>Gestión de Redes Sociales</h3>
                             <p>"Aumenta tu presencia en redes sociales y con marketing digital""</p>
                         </div>

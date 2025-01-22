@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -26,7 +25,7 @@ export default function LoginPage() {
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sección izquierda con fondo degradado */}
       <div className="lg:w-1/2 w-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center p-6 lg:p-0">
-        <Image
+        <img
           src="/login/sesion.png"
           alt="Inicio de sesión"
           width={300}

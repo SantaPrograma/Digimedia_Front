@@ -1,14 +1,11 @@
-import Image from "next/image"
-import logo from "@/public/faq/fondo.webp"
-
 export default function Principal() {
 
 
     return (
         <>
             <section className="relative w-full h-[500px]  overflow-hidden">
-                <Image
-                    src={logo}
+                <img
+                    src="/faq/fondo.webp"
                     alt="logo de preguntas y respuestas"
                     className="absolute  inset-0 w-full h-full xl:h-auto  object-cover z-0 "
                 />

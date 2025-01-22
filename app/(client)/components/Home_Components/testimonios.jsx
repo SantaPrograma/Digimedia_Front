@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import './testimonios.css'
-import opinion from '@/public/image-home/OPINIONES.jpeg'
+
 
 function testimonios(){
     return(
@@ -11,7 +10,7 @@ function testimonios(){
                     <h3>NUESTROS CLIENTES <span>OPINAN</span></h3>
                 </div>
                 <div className="testimonios-child testimonios-img">
-                    <Image src={opinion} alt="" />
+                    <img src="/image-home/OPINIONES.jpeg" alt="" />
                 </div>
             </div>
         </section>

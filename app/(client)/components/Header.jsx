@@ -1,7 +1,4 @@
 import Link from "next/link";
-import logo1 from "@/public/headerFooter/logoblanco2.webp"
-import menu from "@/public/headerFooter/menu.webp"
-import Image from "next/image";
 import "./Header.css"
 
 export default function Header() {
@@ -11,7 +8,7 @@ export default function Header() {
                 {/* Logo */}
                 <div className="logoHeader p-2">
                     <Link href="/">
-                        <Image src={logo1} alt="Digimedia" className="w-[190px]" />
+                        <img src="/headerFooter/logoblanco2.webp" alt="Digimedia" className="w-[190px]" />
                     </Link>
                 </div>
 
@@ -19,7 +16,7 @@ export default function Header() {
                 <div className="seccionesHeader flex items-center">
                     <input type="checkbox" id="menucheckbox" className="hidden" />
                     <label htmlFor="menucheckbox" className="flex items-center cursor-pointer">
-                        <Image src={menu}
+                        <img src="/headerFooter/menu.webp"
                             alt="menú"
                             id="menucheckbox"
                             className="w-[25px]" />
