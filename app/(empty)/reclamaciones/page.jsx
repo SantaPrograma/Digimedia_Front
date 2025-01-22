@@ -3,7 +3,6 @@ import Image from "next/image";
 import logoLegales from "@/public/headerFooter/logoFooter.webp";
 import React from 'react';
 
-
 const ComplaintForm = () => {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -77,7 +76,7 @@ const ComplaintForm = () => {
             <div className="space-y-4">
               <div className="flex items-start">
                 <input type="checkbox" className="mt-1 mr-2" />
-                <p className="text-sm">Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.</p>
+                <p className="text-sm">Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, pudiendo ampliar el plazo hasta por treinta (30) días más, previa comunicación al consumidor.</p>
               </div>
               <div className="flex items-start">
                 <input type="checkbox" className="mt-1 mr-2" />
