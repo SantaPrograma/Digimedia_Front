@@ -6,40 +6,27 @@ import Main from '../components/Main';
 import ModalScroll from '../components/ModalScroll';
 import ModalButton from '../components/ModalButton';
 
-// Imágenes
-import imgMain from '@/public/servicios/marketing/img-main.png';
-import iconLeft from '@/public/servicios/marketing/icon-left.svg';
-import iconRight from '@/public/servicios/marketing/icon-right.svg';
-import icon1 from '@/public/servicios/marketing/icon1.svg';
-import icon2 from '@/public/servicios/marketing/icon2.svg';
-import icon3 from '@/public/servicios/marketing/icon3.svg';
-import icon4 from '@/public/servicios/marketing/icon4.svg';
-
-// Modal
-import fondoModalScroll from '@/public/servicios/marketing/modal-scroll/fondo.webp';
-import fondoModalButton from '@/public/servicios/marketing/modal-button/imagen.webp';
-
 export default function Page() {
   const servicios = [
     {
       title: 'ANÁLISIS Y BENCHMARKING',
       text: 'Evaluamos tu marca frente a la competencia para identificar oportunidades de mejora y crear estrategias más efectivas.',
-      icon: icon1,
+      icon: '/servicios/marketing/icon1.svg',
     },
     {
       title: 'PLANIFICACIÓN ESTRATÉGICA',
       text: 'Aquí se diseñan estrategias personalizadas con objetivos claros, segmentación precisa y tácticas eficaces para alcanzar tus metas de negocio.',
-      icon: icon2,
+      icon: '/servicios/marketing/icon2.svg',
     },
     {
       title: 'PUBLICIDAD DIGITAL',
       text: 'Desarrollamos campañas digitales de alto impacto para aumentar la visibilidad, captar audiencias y maximizar conversiones.',
-      icon: icon3,
+      icon: '/servicios/marketing/icon3.svg',
     },
     {
       title: 'MONITOREO Y REPORTING',
       text: 'Implementamos un monitoreo continuo de tus campañas, recopilando y analizando métricas clave. Presentamos informes detallados que facilitan la toma de decisiones basadas en datos.',
-      icon: icon4,
+      icon: '/servicios/marketing/icon4.svg',
     },
   ];
 
@@ -47,13 +34,13 @@ export default function Page() {
     <>
       <ModalScroll
         text="¡INCREMENTA TUS VENTAS!"
-        fondo={fondoModalScroll}
+        fondo="/servicios/marketing/modal-scroll/fondo.webp"
         title="HAZLO Y CUMPLE TUS SUEÑOS ¡ASESORÍA GRATIS!"
       />
 
       <ModalButton
         title="¡EXPLOTA EL CONTENIDO DE TUS REDES!"
-        fondo={fondoModalButton}
+        fondo="/servicios/marketing/modal-button/imagen.webp"
         text="¡Haz tu sitio web realidad, es GRATIS!"
       />
 
@@ -61,7 +48,7 @@ export default function Page() {
         title="MARKETING Y GESTIÓN DIGITAL"
         subtitle="¡Impulsa tu marca al éxito digital!"
         text="Creamos campañas que no solo se ven, sino que se sienten. Potenciamos tu presencia online con tácticas personalizadas, llevándote al siguiente nivel con resultados medibles y un impacto real. Tu éxito digital comienza aquí."
-        image={imgMain}
+        image="/servicios/marketing/img-main.png"
       />
 
       <Description
@@ -73,8 +60,8 @@ export default function Page() {
 
       <Contactanos
         text="Aumenta tus ventas con marketing digital"
-        iconLeft={iconLeft}
-        iconRight={iconRight}
+        iconLeft="/servicios/marketing/icon-left.png"
+        iconRight="/servicios/marketing/icon-right.png"
       />
     </>
   );

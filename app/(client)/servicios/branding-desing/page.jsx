@@ -6,40 +6,27 @@ import Main from '../components/Main';
 import ModalScroll from '../components/ModalScroll';
 import ModalButton from '../components/ModalButton';
 
-// Imágenes
-import imgMain from '@/public/servicios/branding/img-main.png';
-import iconLeft from '@/public/servicios/branding/icon-left.png';
-import iconRight from '@/public/servicios/branding/icon-right.png';
-import icon1 from '@/public/servicios/branding/icon1.svg';
-import icon2 from '@/public/servicios/branding/icon2.svg';
-import icon3 from '@/public/servicios/branding/icon3.svg';
-import icon4 from '@/public/servicios/branding/icon4.svg';
-
-// Modal
-import fondoModalScroll from '@/public/servicios/branding/modal-scroll/fondo.webp';
-import fondoModalButton from '@/public/servicios/branding/modal-button/imagen.webp';
-
 export default function Page() {
   const servicios = [
     {
       title: 'DESARROLLO DE BRIEF',
       text: 'El briefing nos permite entender tu empresa para crear y definir tu marca.',
-      icon: icon1,
+      icon: '/servicios/branding/icon1.svg',
     },
     {
       title: 'IDENTIDAD VISUAL CORPORATIVA',
       text: 'Creemos identidades visuales únicas que reflejan tu esencia y destacan en el mercado.',
-      icon: icon2,
+      icon: '/servicios/branding/icon2.svg',
     },
     {
       title: 'NAMING, LOGO Y SLOGAN',
       text: 'Creamos elementos clave que representen tu marca y conecten con tu audiencia.',
-      icon: icon3,
+      icon: '/servicios/branding/icon3.svg',
     },
     {
       title: 'MANUAL DE MARCA',
       text: 'Definimos las reglas que guiarán todas las estrategias de tu marca.',
-      icon: icon4,
+      icon: '/servicios/branding/icon4.svg',
     },
   ];
 
@@ -47,13 +34,13 @@ export default function Page() {
     <>
       <ModalScroll
         text="¡DISEÑA TU CAMINO AL ÉXITO!"
-        fondo={fondoModalScroll}
+        fondo="/servicios/branding/modal-scroll/fondo.webp"
         title="TU PRIMERA CONSULTA ¡ES GRATIS!"
       />
 
       <ModalButton
         title="¡DISEÑA TU CAMINO HACIA EL ÉXITO!"
-        fondo={fondoModalButton}
+        fondo="/servicios/branding/modal-button/imagen.webp"
         text="¡Haz tu sitio web realidad, es GRATIS!"
       />
 
@@ -61,7 +48,7 @@ export default function Page() {
         title="BRANDING Y DISEÑO"
         subtitle="La Voz y la Cara de tu Marca"
         text="Creamos marcas que hablan, emocionan y conectan. Desde una identidad visual memorable hasta mensajes que resuenan profundamente, hacemos que tu empresa sea tan única como inolvidable."
-        image={imgMain}
+        image="/servicios/branding/img-main.png"
       />
 
       <Description
@@ -73,8 +60,8 @@ export default function Page() {
 
       <Contactanos
         text="Conecta de manera creativa e innovadora con tu audiencia"
-        iconLeft={iconLeft}
-        iconRight={iconRight}
+        iconLeft="/servicios/branding/icon-left.png"
+        iconRight="/servicios/branding/icon-right.png"
       />
     </>
   );
