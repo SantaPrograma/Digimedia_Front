@@ -2,10 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 
-import Image from 'next/image';
-
-import logo from '@/public/servicios/logo-modal.webp';
-
 export default function ModalScroll({ text, fondo, title }) {
   const modalRef = useRef(null);
 
@@ -45,12 +41,12 @@ export default function ModalScroll({ text, fondo, title }) {
           X
         </button>
         <div className="relative w-64 overflow-hidden flex justify-center">
-          <Image
-            className="w-auto max-w-none max-h-[540px]"
-            src={fondo}
+          <img className="w-auto max-w-none max-h-[540px]" src={fondo} alt="" />
+          <img
+            className="absolute top-4 left-4"
+            src="/servicios/logo-modal.webp"
             alt=""
           />
-          <Image className="absolute top-4 left-4" src={logo} alt="" />
           <p className="absolute bottom-10 right-6 text-3xl font-semibold text-right">
             {text}
           </p>
