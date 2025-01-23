@@ -1,9 +1,75 @@
+"use client";
+
 import './reclamaciones.css';
-import Image from "next/image";
-import logoLegales from "@/public/headerFooter/logoFooter.webp";
-import React from 'react';
+import React, { useState } from 'react';
 
 const ComplaintForm = () => {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    tipoDocumento: '',
+    documento: '',
+    correo: '',
+    celular: '',
+    direccion: '',
+    distrito: '',
+    ciudad: '',
+    tipoReclamo: '',
+    servicioContratado: '',
+    incidente: '',
+    aceptaPoliticas: false,
+    conoceReclamo: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/reclamos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert('Reclamo enviado correctamente.');
+        console.log('Respuesta del servidor:', result);
+        setFormData({
+          nombre: '',
+          apellido: '',
+          tipoDocumento: '',
+          documento: '',
+          correo: '',
+          celular: '',
+          direccion: '',
+          distrito: '',
+          ciudad: '',
+          tipoReclamo: '',
+          servicioContratado: '',
+          incidente: '',
+          aceptaPoliticas: false,
+          conoceReclamo: false,
+        });
+      } else {
+        alert('Error al enviar el reclamo. Por favor, intenta nuevamente.');
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos:', error);
+      alert('Error de red. Por favor, intenta nuevamente.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-[#6f4be8] flex justify-center items-center">
@@ -26,67 +92,174 @@ const ComplaintForm = () => {
 
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-2xl font-bold text-center mb-6">Cuestionario de quejas</h2>
-          
-          <form className="space-y-6">
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4">
               <h3 className="font-semibold">Datos Personales:</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="Nombre" className="w-full p-2 border rounded" />
-                <input type="text" placeholder="Apellido" className="w-full p-2 border rounded" />
-                <select className="w-full p-2 border rounded">
-                  <option value="">Seleccionar una opcion</option>
-                  <option value="">DNI</option>
-                  <option value="">RUC</option>
-                  <option value="">CE</option>
-                  <option value="">PTP</option>
-                  <option value="">OTROS...</option>
+                <input
+                  type="text"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  placeholder="Nombre"
+                  className="w-full p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  name="apellido"
+                  value={formData.apellido}
+                  onChange={handleChange}
+                  placeholder="Apellido"
+                  className="w-full p-2 border rounded"
+                />
+                <select
+                  name="tipoDocumento"
+                  value={formData.tipoDocumento}
+                  onChange={handleChange}
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Seleccionar una opción</option>
+                  <option value="DNI">DNI</option>
+                  <option value="RUC">RUC</option>
+                  <option value="CE">CE</option>
+                  <option value="PTP">PTP</option>
+                  <option value="OTROS">OTROS...</option>
                 </select>
-                <input type="text" placeholder="Documento" className="w-full p-2 border rounded" />
-                <input type="email" placeholder="Correo Electronico" className="w-full p-2 border rounded" />
-                <input type="tel" placeholder="Celular" className="w-full p-2 border rounded" />
+                <input
+                  type="text"
+                  name="documento"
+                  value={formData.documento}
+                  onChange={handleChange}
+                  placeholder="Documento"
+                  className="w-full p-2 border rounded"
+                />
+                <input
+                  type="email"
+                  name="correo"
+                  value={formData.correo}
+                  onChange={handleChange}
+                  placeholder="Correo Electrónico"
+                  className="w-full p-2 border rounded"
+                />
+                <input
+                  type="tel"
+                  name="celular"
+                  value={formData.celular}
+                  onChange={handleChange}
+                  placeholder="Celular"
+                  className="w-full p-2 border rounded"
+                />
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="text" placeholder="Direccion" className="w-full p-2 border rounded" />
-                <input type="text" placeholder="Distrito" className="w-full p-2 border rounded" />
-                <input type="text" placeholder="Ciudad" className="w-full p-2 border rounded" />
+                <input
+                  type="text"
+                  name="direccion"
+                  value={formData.direccion}
+                  onChange={handleChange}
+                  placeholder="Dirección"
+                  className="w-full p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  name="distrito"
+                  value={formData.distrito}
+                  onChange={handleChange}
+                  placeholder="Distrito"
+                  className="w-full p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  name="ciudad"
+                  value={formData.ciudad}
+                  onChange={handleChange}
+                  placeholder="Ciudad"
+                  className="w-full p-2 border rounded"
+                />
               </div>
             </div>
 
             <div className="space-y-4">
               <h3 className="font-semibold">Datos de incidente:</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <select className="w-full p-2 border rounded">
+                <select
+                  name="tipoReclamo"
+                  value={formData.tipoReclamo}
+                  onChange={handleChange}
+                  className="w-full p-2 border rounded"
+                >
                   <option value="">Seleccionar tipo de reclamo</option>
-                  <option value="">QUEJA</option>
-                  <option value="">RECLAMO</option>
+                  <option value="QUEJA">QUEJA</option>
+                  <option value="RECLAMO">RECLAMO</option>
                 </select>
-                <select className="w-full p-2 border rounded">
+                <select
+                  name="servicioContratado"
+                  value={formData.servicioContratado}
+                  onChange={handleChange}
+                  className="w-full p-2 border rounded"
+                >
                   <option value="">Seleccionar servicio contratado</option>
-                  <option value="">TECHNOLOGY</option>
-                  <option value="">OTROS</option>
+                  <option value="TECHNOLOGY">TECHNOLOGY</option>
+                  <option value="OTROS">OTROS</option>
                 </select>
               </div>
-              <textarea 
-                placeholder="Indicar incidente" 
+              <textarea
+                name="incidente"
+                value={formData.incidente}
+                onChange={handleChange}
+                placeholder="Indicar incidente"
                 className="w-full p-2 border rounded h-32"
               />
             </div>
 
             <div className="space-y-4">
               <div className="flex items-start">
-                <input type="checkbox" className="mt-1 mr-2" />
-                <p className="text-sm">Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, pudiendo ampliar el plazo hasta por treinta (30) días más, previa comunicación al consumidor.</p>
+                <input
+                  type="checkbox"
+                  name="conoceReclamo"
+                  checked={formData.conoceReclamo}
+                  onChange={handleChange}
+                  className="mt-1 mr-2"
+                />
+                <p className="text-sm">
+                Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, pudiendo ampliar el plazo hasta por treinta (30) días más, previa comunicación al consumidor.
+                </p>
               </div>
               <div className="flex items-start">
-                <input type="checkbox" className="mt-1 mr-2" />
-                <p className="text-sm">Acepto las políticas de privacidad</p>
+                <input
+                  type="checkbox"
+                  name="aceptaPoliticas"
+                  checked={formData.aceptaPoliticas}
+                  onChange={handleChange}
+                  className="mt-1 mr-2"
+                />
+                <p className="text-sm">Acepto las políticas de privacidad.</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button type="button" className="w-full p-2 bg-purple-600 text-white rounded hover:bg-purple-700">
-                Borras Datos
+              <button
+                type="button"
+                onClick={() => setFormData({
+                  nombre: '',
+                  apellido: '',
+                  tipoDocumento: '',
+                  documento: '',
+                  correo: '',
+                  celular: '',
+                  direccion: '',
+                  distrito: '',
+                  ciudad: '',
+                  tipoReclamo: '',
+                  servicioContratado: '',
+                  incidente: '',
+                  aceptaPoliticas: false,
+                  conoceReclamo: false,
+                })}
+                className="w-full p-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+              >
+                Borrar Datos
               </button>
               <button type="submit" className="w-full p-2 bg-purple-600 text-white rounded hover:bg-purple-700">
                 Enviar
