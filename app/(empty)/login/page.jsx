@@ -4,17 +4,35 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ usuario: '', password: '' });
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.username === 'admin' && formData.password === '1234') {
-      router.push('/dashboard');
-    } else {
-      setError(true);
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevenir que se recargue la página
+    setLoading(true);
+    setError(false);
+
+    const form = new FormData()
+    form.append("usuario", formData.usuario)
+    form.append("password", formData.password)
+
+    await fetch("http://localhost:3500/api/usuarios/login", {
+      method: "POST",
+      body: form
+    }).then(data => data.json()).then(data => {
+      if (parseInt(data.status) == 200) {
+        
+        localStorage.setItem("token", data.token)
+        router.push("/dashboard")
+
+      } else{
+        setError(true);
+        setLoading(false)
+      }
+    })
+
   };
 
   const handleChange = (e) => {
@@ -55,9 +73,9 @@ export default function LoginPage() {
               </label>
               <input
                 type="text"
-                id="username"
+                id="usuario"
                 className="w-full p-2 border border-gray-300 rounded focus:ring-purple-500 focus:border-purple-500"
-                value={formData.username}
+                value={formData.usuario}
                 onChange={handleChange}
                 required
               />
@@ -77,6 +95,7 @@ export default function LoginPage() {
             </div>
             <div>
               <button
+                disabled={loading}
                 type="submit"
                 className="w-full bg-purple-600 text-white p-2 rounded hover:bg-purple-700 transition"
               >
