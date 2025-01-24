@@ -6,40 +6,27 @@ import Main from '../components/Main';
 import ModalScroll from '../components/ModalScroll';
 import ModalButton from '../components/ModalButton';
 
-// Imágenes
-import imgMain from '@/public/servicios/gestion/img-main.png';
-import iconLeft from '@/public/servicios/gestion/icon-left.svg';
-import iconRight from '@/public/servicios/gestion/icon-right.svg';
-import icon1 from '@/public/servicios/gestion/icon1.svg';
-import icon2 from '@/public/servicios/gestion/icon2.svg';
-import icon3 from '@/public/servicios/gestion/icon3.svg';
-import icon4 from '@/public/servicios/gestion/icon4.svg';
-
-// Modal
-import fondoModalScroll from '@/public/servicios/gestion/modal-scroll/fondo.webp';
-import fondoModalButton from '@/public/servicios/gestion/modal-button/imagen.webp';
-
 export default function Page() {
   const servicios = [
     {
       title: 'PLANIFICACIÓN Y CRONOGRAMA',
       text: 'Creamos estrategias de redes sociales alineadas con tus objetivos para maximizar el impacto de tu marca.',
-      icon: icon1,
+      icon: '/servicios/gestion/icon1.svg',
     },
     {
       title: 'PRODUCCIÓN DE PAUTAS',
       text: 'Desarrollamos pautas claras para el contenido y la interacción en redes sociales, alineadas con tu marca.',
-      icon: icon2,
+      icon: '/servicios/gestion/icon2.svg',
     },
     {
       title: 'DISEÑO DE PAUTAS',
       text: 'Creamos documentos visuales que definen la identidad, voz y tono de tu marca en redes sociales.',
-      icon: icon3,
+      icon: '/servicios/gestion/icon3.svg',
     },
     {
       title: 'DISEÑO UX Y UI',
       text: 'Diseñamos experiencias digitales centradas en el usuario, combinando estrategias de UX  con interfaces visualmente atractivas y funcionales (UI).',
-      icon: icon4,
+      icon: '/servicios/gestion/icon4.svg',
     },
   ];
 
@@ -47,13 +34,13 @@ export default function Page() {
     <>
       <ModalScroll
         text="¡HAZ CRECER TUS REDES!"
-        fondo={fondoModalScroll}
+        fondo="/servicios/gestion/modal-scroll/fondo.webp"
         title="SOLO POR HOY ACCEDE A UNA ¡ASESORÍA GRATIS!"
       />
 
       <ModalButton
         title="¡ELEVA TUS CAMPAÑAS A OTRO NIVEL!"
-        fondo={fondoModalButton}
+        fondo="/servicios/gestion/modal-button/imagen.webp"
         text="¡TU PRIMERA ASESORÍA ES GRATIS!"
       />
 
@@ -61,7 +48,7 @@ export default function Page() {
         title="GESTIÓN DE REDES SOCIALES"
         subtitle="¡Gestionamos tu éxito en redes sociales!"
         text="Te ayudamos a construir una voz única para tu marca, interactúa de manera auténtica con tu audiencia y transforma tus seguidores en clientes fieles."
-        image={imgMain}
+        image="/servicios/gestion/img-main.png"
       />
 
       <Description
@@ -73,8 +60,8 @@ export default function Page() {
 
       <Contactanos
         text="Deja que tus redes estén en otro nivel"
-        iconLeft={iconLeft}
-        iconRight={iconRight}
+        iconLeft="/servicios/gestion/icon-left.png"
+        iconRight="/servicios/gestion/icon-right.png"
       />
     </>
   );

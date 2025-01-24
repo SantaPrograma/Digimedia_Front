@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function Main({ title, subtitle, text, image }) {
   return (
     <main className="flex flex-col-reverse items-center justify-between max-w-6xl m-auto md:flex-row p-4 md:py-16">
@@ -13,7 +11,7 @@ export default function Main({ title, subtitle, text, image }) {
           ¿CÓMO TRABAJAMOS?
         </a>
       </div>
-      <Image className="max-w-96 w-full" src={image} alt="" />
+      <img className="max-w-96 w-full" src={image} alt="" />
     </main>
   );
 }
