@@ -1,9 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-export default function ModalClick({ text, fondo, title }) {
+export default function ModalClick({ text, fondo, title, serviceName }) {
   const modalRef = useRef(null);
+
+  // Estados para los campos del formulario
+  const [nombre, setNombre] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [email, setEmail] = useState('');
 
   const hideModal = () => {
     modalRef.current.classList.add('hidden');
@@ -11,11 +16,41 @@ export default function ModalClick({ text, fondo, title }) {
 
   useEffect(() => {
     window.addEventListener('click', (e) => {
-      if (e.target.id == 'modal-button') {
+      if (e.target.id === 'modal-button') {
         modalRef.current.classList.remove('hidden');
       }
     });
   }, []);
+
+  // Manejar el envío del formulario
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Crear un objeto con los datos a enviar
+    const data = {
+      nombre,
+      telefono,
+      email,
+      servicio: serviceName,
+    };
+
+    // Enviar los datos al backend usando fetch
+    fetch('http://localhost/api/modal', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Formulario enviado exitosamente:', data);
+        hideModal();
+      })
+      .catch((error) => {
+        console.error('Error al enviar el formulario:', error);
+      });
+  };
 
   return (
     <div
@@ -36,11 +71,29 @@ export default function ModalClick({ text, fondo, title }) {
           <p className="font-bold text-2xl text-center mb-4 max-w-sm">
             {title}
           </p>
-          <form className="flex flex-col gap-4">
-            <Input label="Nombre" type="text" name="name" />
-            <Input label="Teléfono" type="text" name="phone" />
-            <Input label="Correo" type="email" name="email" />
-            <button className="bg-[#a121fd] font-bold p-4 rounded-lg">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <Input
+              label="Nombre"
+              type="text"
+              name="name"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <Input
+              label="Teléfono"
+              type="text"
+              name="phone"
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
+            />
+            <Input
+              label="Correo"
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button className="bg-[#a121fd] font-bold p-4 rounded-lg" type="submit">
               ¡EMPIEZA YA!
             </button>
           </form>
@@ -54,7 +107,7 @@ export default function ModalClick({ text, fondo, title }) {
   );
 }
 
-function Input({ label, type, name }) {
+function Input({ label, type, name, value, onChange }) {
   return (
     <div className="flex gap-2 justify-between items-center">
       <label className="font-semibold shrink-0 basis-20" htmlFor={name}>
@@ -65,6 +118,8 @@ function Input({ label, type, name }) {
         id={name}
         name={name}
         type={type}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

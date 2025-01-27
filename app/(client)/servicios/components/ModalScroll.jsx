@@ -1,9 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export default function ModalScroll({ text, fondo, title }) {
+export default function ModalScroll({ text, fondo, title, serviceName }) {
   const modalRef = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    service: serviceName,
+  });
 
   const hideModal = () => {
     modalRef.current.classList.add('hidden');
@@ -12,7 +18,7 @@ export default function ModalScroll({ text, fondo, title }) {
   let displayed = false;
 
   useEffect(() => {
-    window.addEventListener('scroll', (e) => {
+    window.addEventListener('scroll', () => {
       if (!displayed) {
         if (
           window.innerHeight + window.scrollY >=
@@ -24,6 +30,34 @@ export default function ModalScroll({ text, fondo, title }) {
       }
     });
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost/api/modal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Formulario enviado correctamente');
+        hideModal();
+      } else {
+        alert('Hubo un problema al enviar el formulario');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al enviar el formulario');
+    }
+  };
 
   return (
     <div
@@ -53,10 +87,35 @@ export default function ModalScroll({ text, fondo, title }) {
         </div>
         <div className="p-8 flex flex-col justify-between w-96 gap-8 bg-gradient-to-b from-[#0095ff] to-[#ff037f]">
           <p className="text-3xl text-center font-bold">{title}</p>
-          <form className="flex flex-col gap-4">
-            <Input label="Nombre" type="text" name="name" />
-            <Input label="Teléfono" type="text" name="phone" />
-            <Input label="Correo" type="email" name="email" />
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <Input
+              label="Nombre"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <Input
+              label="Teléfono"
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <Input
+              label="Correo"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {/* Incluye el servicio como un campo oculto */}
+            <input
+              type="hidden"
+              name="service"
+              value={formData.service}
+              readOnly
+            />
             <button className="bg-[#0095ff] p-2 text-2xl font-bold rounded-2xl mt-4">
               HAZLO YA
             </button>
@@ -67,7 +126,7 @@ export default function ModalScroll({ text, fondo, title }) {
   );
 }
 
-function Input({ label, type, name }) {
+function Input({ label, type, name, value, onChange }) {
   return (
     <div className="flex flex-col gap-2">
       <label className="font-semibold" htmlFor={name}>
@@ -78,6 +137,8 @@ function Input({ label, type, name }) {
         id={name}
         name={name}
         type={type}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

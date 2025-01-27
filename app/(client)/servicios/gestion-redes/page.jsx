@@ -36,12 +36,14 @@ export default function Page() {
         text="¡HAZ CRECER TUS REDES!"
         fondo="/servicios/gestion/modal-scroll/fondo.webp"
         title="SOLO POR HOY ACCEDE A UNA ¡ASESORÍA GRATIS!"
+        serviceName="Gestión de redes"
       />
 
       <ModalButton
         title="¡ELEVA TUS CAMPAÑAS A OTRO NIVEL!"
         fondo="/servicios/gestion/modal-button/imagen.webp"
         text="¡TU PRIMERA ASESORÍA ES GRATIS!"
+        serviceName="Gestión de redes"
       />
 
       <Main
