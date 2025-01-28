@@ -2,6 +2,7 @@
 
 .seccionesHeader a:hover, .seccionesHeader p:hover{
     background-color: #333333b4;
+    border-radius: 30px;
 }
 
 .menuHorizontal li:hover .menuVertical {

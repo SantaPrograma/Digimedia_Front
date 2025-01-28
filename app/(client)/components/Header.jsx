@@ -14,13 +14,6 @@ export default function Header() {
 
                 {/* Menú */}
                 <div className="seccionesHeader flex items-center">
-                    <input type="checkbox" id="menucheckbox" className="hidden" />
-                    <label htmlFor="menucheckbox" className="flex items-center cursor-pointer">
-                        <img src="/headerFooter/menu.webp"
-                            alt="menú"
-                            id="menucheckbox"
-                            className="w-[25px]" />
-                    </label>
                     <ul className="menuHorizontal flex list-none m-0 items-center pl-0">
                         <li className="flex items-center">
                             <Link href="/" className="block text-white font-bold text-sm py-[15px] px-[10px] w-full">

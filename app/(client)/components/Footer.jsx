@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="mainFooter bg-[#333333]">
                 <div className="footerContenido pt-[70px] px-[70px] pb-0 text-white flex justify-evenly">
                     <div className="imgFooter">
-                        <img src="/headerFooter/logoFooter.web" alt="Digimedia" width={250} height={100} />
+                        <img src="./headerFooter/logoFooter.webp" alt="Digimedia" width={250} height={100} />
                     </div>
                     <div className="contactoFooter listaFooter w-[300px]">
                         <h3 className="pb-[20px] text-white">Contacto</h3>

@@ -15,7 +15,7 @@ export default function Home() {
             <div className="clip-path-polygon text-white relative text-left h-[200px] w-[700px] bg-[rgba(123,34,179,0.5)] 
                 rounded-tr-[10px] rounded-br-[10px] custom-clip-path pt-[10px] pl-[20px] pr-[50px]">
               <h1 className="font-bold text-[40px]">¿No sabes por donde empezar?</h1>
-              <span className="text-2 text-[#FCEE21] text-[30px]">
+              <span className="text-2 text-[#FCEE21] text-[20px]">
                 Impulsa tu marca al siguiente nivel <br /> con nosotros
               </span>
             </div>
