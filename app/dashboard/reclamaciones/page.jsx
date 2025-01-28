@@ -23,7 +23,7 @@ const data = [];
 export default function Page() {
   return (
     <main className="p-4 overflow-scroll flex-1">
-      <h2 className="text-4xl font-bold mb-4">Usuarios</h2>
+      <h2 className="text-4xl font-bold mb-4">Libro de Reclamaciones</h2>
       <Table headers={headers} data={data} />
     </main>
   );
