@@ -21,6 +21,9 @@ const ComplaintForm = () => {
     conoceReclamo: false,
   });
 
+  const [mensaje, setMensaje] = useState('');  // Estado para el mensaje de respuesta
+  const [error, setError] = useState(''); // Estado para manejar errores de validación
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -32,18 +35,26 @@ const ComplaintForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validación: ambas casillas deben estar marcadas
+    if (!formData.conoceReclamo || !formData.aceptaPoliticas) {
+      setError('Debes aceptar las políticas de privacidad y ser consciente de la formulación del reclamo.');
+      return;
+    }
+
+    setError(''); // Limpiar mensaje de error si pasa la validación
+
     try {
-      const response = await fetch('/api/reclamos', {
+      const response = await fetch('/api/reclamos', {  // Consumo de la API
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData),  // Envío de los datos del formulario
       });
 
       if (response.ok) {
         const result = await response.json();
-        alert('Reclamo enviado correctamente.');
+        setMensaje('Su solicitud fue enviada correctamente.');  // Mensaje de éxito
         console.log('Respuesta del servidor:', result);
         setFormData({
           nombre: '',
@@ -62,11 +73,11 @@ const ComplaintForm = () => {
           conoceReclamo: false,
         });
       } else {
-        alert('Error al enviar el reclamo. Por favor, intenta nuevamente.');
+        setMensaje('Hubo un error al enviar el reclamo. Por favor, intenta nuevamente.');  // Mensaje de error
       }
     } catch (error) {
       console.error('Error al enviar los datos:', error);
-      alert('Error de red. Por favor, intenta nuevamente.');
+      setMensaje('Error de red. Por favor, intenta nuevamente.');  // Mensaje de error
     }
   };
 
@@ -92,6 +103,18 @@ const ComplaintForm = () => {
 
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-2xl font-bold text-center mb-6">Cuestionario de quejas</h2>
+
+          {mensaje && (
+            <div className={`text-center mb-4 p-4 ${mensaje.includes('error') ? 'text-red-500' : 'text-green-500'}`}>
+              {mensaje}
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center mb-4 p-4 text-red-500">
+              {error}
+            </div>
+          )}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4">
@@ -223,9 +246,10 @@ const ComplaintForm = () => {
                   className="mt-1 mr-2"
                 />
                 <p className="text-sm">
-                Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, pudiendo ampliar el plazo hasta por treinta (30) días más, previa comunicación al consumidor.
+                  Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, de acuerdo a la Ley 29571
                 </p>
               </div>
+
               <div className="flex items-start">
                 <input
                   type="checkbox"
@@ -234,37 +258,19 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   className="mt-1 mr-2"
                 />
-                <p className="text-sm">Acepto las políticas de privacidad.</p>
+                <p className="text-sm">
+                  Acepto las Políticas de Privacidad.
+                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button
-                type="button"
-                onClick={() => setFormData({
-                  nombre: '',
-                  apellido: '',
-                  tipoDocumento: '',
-                  documento: '',
-                  correo: '',
-                  celular: '',
-                  direccion: '',
-                  distrito: '',
-                  ciudad: '',
-                  tipoReclamo: '',
-                  servicioContratado: '',
-                  incidente: '',
-                  aceptaPoliticas: false,
-                  conoceReclamo: false,
-                })}
-                className="w-full p-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-              >
-                Borrar Datos
-              </button>
-              <button type="submit" className="w-full p-2 bg-purple-600 text-white rounded hover:bg-purple-700">
-                Enviar
-              </button>
-            </div>
+            <button
+              type="submit"
+              className={`w-full p-2 rounded transition-all duration-300 ${formData.aceptaPoliticas && formData.conoceReclamo ? 'bg-[#6f4be8] hover:bg-[#5c40d1]' : 'bg-gray-400 cursor-not-allowed'}`}
+              disabled={!formData.aceptaPoliticas || !formData.conoceReclamo} // Deshabilitar si alguna casilla no está marcada
+            >
+              Enviar Reclamación
+            </button>
           </form>
         </div>
       </div>
