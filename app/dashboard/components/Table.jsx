@@ -1,4 +1,4 @@
-export default function Table({ headers, data }) {
+export default function Table({ headers, data, onDelete }) {
   const headersList = headers.map((header, index) => {
     return (
       <th key={index} className="p-2">
@@ -19,7 +19,10 @@ export default function Table({ headers, data }) {
     }
     row.push(
       <td key={50}>
-        <button className="bg-[#dc3545] text-white rounded-md px-3 py-2 m-2">
+        <button 
+          className="bg-[#dc3545] text-white rounded-md px-3 py-2 m-2"
+          onClick={() => onDelete(dataRow.id)}
+        >
           Eliminar
         </button>
         <button className="bg-[#ffc107] rounded-md px-3 py-2 m-2">
@@ -36,17 +39,15 @@ export default function Table({ headers, data }) {
   });
 
   return (
-    <div className="flex-1 overflow-y-scroll">
-      <table>
-        <thead>
-          <tr>
-            {headersList}
-            <th>OPCIONES</th>
-          </tr>
-        </thead>
-        <tbody>{dataList}</tbody>
-      </table>
-    </div>
-
+    <table className="min-w-full bg-white">
+      <thead>
+        <tr>
+          {headersList}
+        </tr>
+      </thead>
+      <tbody>
+        {dataList}
+      </tbody>
+    </table>
   );
 }
