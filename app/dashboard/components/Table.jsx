@@ -29,21 +29,24 @@ export default function Table({ headers, data }) {
     );
 
     return (
-      <tr key={dataRow.id} className="odd:bg-[#f2f2f2]">
+      <tr key={dataRow.id} className="odd:bg-[#f2f2f2] h-[56px]">
         {row}
       </tr>
     );
   });
 
   return (
-    <table>
-      <thead>
-        <tr>
-          {headersList}
-          <th>OPCIONES</th>
-        </tr>
-      </thead>
-      <tbody>{dataList}</tbody>
-    </table>
+    <div className="flex-1 overflow-y-scroll">
+      <table>
+        <thead>
+          <tr>
+            {headersList}
+            <th>OPCIONES</th>
+          </tr>
+        </thead>
+        <tbody>{dataList}</tbody>
+      </table>
+    </div>
+
   );
 }

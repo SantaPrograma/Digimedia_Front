@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState({ usuario: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false);
   const router = useRouter();
@@ -15,16 +15,18 @@ export default function LoginPage() {
     setError(false);
 
     const form = new FormData()
-    form.append("usuario", formData.usuario)
+    form.append("email", formData.email)
     form.append("password", formData.password)
 
-    await fetch("http://localhost:3500/api/usuarios/login", {
+    await fetch("http://127.0.0.1:8000/api/user/login", {
       method: "POST",
       body: form
     }).then(data => data.json()).then(data => {
+      console.log(data);
       if (parseInt(data.status) == 200) {
-        
+
         localStorage.setItem("token", data.token)
+        localStorage.setItem("user", JSON.stringify(data.data))
         router.push("/dashboard")
 
       } else{
@@ -69,13 +71,13 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Usuario:
+                Email:
               </label>
               <input
                 type="text"
-                id="usuario"
+                id="email"
                 className="w-full p-2 border border-gray-300 rounded focus:ring-purple-500 focus:border-purple-500"
-                value={formData.usuario}
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
