@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { User, Lock, ArrowLeft } from 'lucide-react';
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState({ usuario: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const router = useRouter();
@@ -16,18 +16,20 @@ export default function LoginPage() {
     setError(false);
 
     const form = new FormData();
-    form.append('usuario', formData.usuario);
+    form.append('email', formData.email);
     form.append('password', formData.password);
 
-    await fetch('http://localhost:3500/api/usuarios/login', {
+    await fetch('http://127.0.0.1:8000/api/user/login', {
       method: 'POST',
       body: form,
     })
       .then((data) => data.json())
       .then((data) => {
+        console.log(data);
+        
         if (parseInt(data.status) === 200) {
           localStorage.setItem('token', data.token);
-          router.push('/dashboard');
+          router.push('/dashboard/main');
         } else {
           setError(true);
           setLoading(false);
@@ -96,9 +98,9 @@ export default function LoginPage() {
                 </div>
                 <input
                   type="text"
-                  id="usuario"
+                  id="email"
                   className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 bg-gray-50 transition-colors duration-200"
-                  value={formData.usuario}
+                  value={formData.email}
                   onChange={handleChange}
                   placeholder="Ingresa tu usuario"
                   required
@@ -129,7 +131,7 @@ export default function LoginPage() {
             <button
               disabled={loading}
               type="submit"
-              className="w-full bg-gradient-to-r from-[#90388b] to-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50 hover:scale-105 transition-all duration-300 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-[#90388b] to-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50 hover:scale-105 transition-all duration-300 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

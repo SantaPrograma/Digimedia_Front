@@ -1,7 +1,13 @@
+"use client"
+import { useRouter } from "next/router";
 
 
 export default function Page() {
-    return (
-      <h1 className="mt-4" >home dash</h1>
-    );
-  }
+
+  const router = useRouter();
+  router.push("/dashboard/main")
+
+  return (
+    <h1 className="mt-4" >home dash</h1>
+  );
+}
