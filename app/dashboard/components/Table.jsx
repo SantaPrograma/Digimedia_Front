@@ -1,4 +1,4 @@
-export default function Table({ headers, data, onDelete }) {
+export default function Table({ headers, data, onDelete, onUpdate }) {
   const headersList = headers.map((header, index) => {
     return (
       <th key={index} className="p-2">
@@ -25,7 +25,10 @@ export default function Table({ headers, data, onDelete }) {
         >
           Eliminar
         </button>
-        <button className="bg-[#ffc107] rounded-md px-3 py-2 m-2">
+        <button 
+          className="bg-[#ffc107] rounded-md px-3 py-2 m-2"
+          onClick={() => onUpdate(dataRow.id)}
+        >
           Editar
         </button>
       </td>
