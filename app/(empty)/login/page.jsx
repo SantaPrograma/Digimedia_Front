@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { User, Lock, ArrowLeft } from 'lucide-react';
+import userService from '@/app/dashboard/users/services/user.service';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -19,14 +20,9 @@ export default function LoginPage() {
     form.append('email', formData.email);
     form.append('password', formData.password);
 
-    await fetch('http://127.0.0.1:8000/api/user/login', {
-      method: 'POST',
-      body: form,
-    })
-      .then((data) => data.json())
+    userService.login(form)
       .then((data) => {
-        console.log(data);
-        
+
         if (parseInt(data.status) === 200) {
           localStorage.setItem('token', data.token);
           router.push('/dashboard/main');
@@ -35,6 +31,7 @@ export default function LoginPage() {
           setLoading(false);
         }
       });
+    //   });
   };
 
   const handleChange = (e) => {
