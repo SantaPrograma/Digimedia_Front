@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import Pagination from '../components/Pagination';
 import Table from '../components/Table';
 import FormModal from '../components/FormModal';
+import EditFormModal from '../components/EditFormModal';
 import { useEffect, useState } from 'react';
 
 const headers = ['id', 'nombre', 'telefono', 'correo', 'fecha_registro', 'servicio_id'];
@@ -16,6 +17,8 @@ export default function Page() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [currentService, setCurrentService] = useState(null)
 
   async function setProducts(page) {
     try {
@@ -75,6 +78,25 @@ export default function Page() {
     }
   }
 
+  const handleUpdate = async (id, formData) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/modalservicios/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (response.ok) {
+        setShowEditModal(false)
+        await setProducts(currentPage)
+      }
+    } catch (error) {
+      console.error('Error al actualizar el servicio:', error)
+    }
+  }
+
   const handleDelete = async (id) => {
     const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este servicio?')
     if (!confirmDelete) return
@@ -101,7 +123,10 @@ export default function Page() {
       <h2 className="text-4xl font-bold mb-4">Servicios</h2>
       <button 
         className='bg-blue-600 text-white p-2 rounded-md mb-4 font-bold'
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          setCurrentService(null)
+          setShowModal(true)
+        }}
       >
         Crear
       </button>
@@ -116,6 +141,11 @@ export default function Page() {
             headers={headers} 
             data={data} 
             onDelete={handleDelete}
+            onUpdate={(id) => {
+              const service = data.find(item => item.id === id)
+              setCurrentService(service)
+              setShowEditModal(true)
+            }}
           />
           <Pagination count={count} />
         </>
@@ -125,6 +155,14 @@ export default function Page() {
         <FormModal 
           onClose={() => setShowModal(false)}
           onSubmit={handleCreate}
+        />
+      )}
+
+      {showEditModal && (
+        <EditFormModal 
+          onClose={() => setShowEditModal(false)}
+          onSubmit={(formData) => handleUpdate(currentService.id, formData)}
+          initialData={currentService}
         />
       )}
     </main>
