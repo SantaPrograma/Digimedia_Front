@@ -2,10 +2,7 @@ import { useState } from 'react'
 
 export default function FormModal({ onClose, onSubmit }) {
   const [formData, setFormData] = useState({
-    nombre: '',
-    telefono: '',
-    correo: '',
-    servicio_id: ''
+    nombre: ''
   })
 
   const handleSubmit = (e) => {
@@ -20,31 +17,11 @@ export default function FormModal({ onClose, onSubmit }) {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Nombre"
-            className="w-full mb-2 p-2 border rounded"
+            placeholder="Nombre del servicio"
+            className="w-full mb-4 p-2 border rounded"
             value={formData.nombre}
             onChange={(e) => setFormData({...formData, nombre: e.target.value})}
-          />
-          <input
-            type="tel"
-            placeholder="Teléfono"
-            className="w-full mb-2 p-2 border rounded"
-            value={formData.telefono}
-            onChange={(e) => setFormData({...formData, telefono: e.target.value})}
-          />
-          <input
-            type="email"
-            placeholder="Correo"
-            className="w-full mb-2 p-2 border rounded"
-            value={formData.correo}
-            onChange={(e) => setFormData({...formData, correo: e.target.value})}
-          />
-          <input
-            type="number"
-            placeholder="ID Servicio"
-            className="w-full mb-4 p-2 border rounded"
-            value={formData.servicio_id}
-            onChange={(e) => setFormData({...formData, servicio_id: e.target.value})}
+            required
           />
           <div className="flex justify-end gap-2">
             <button
