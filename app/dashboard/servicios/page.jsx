@@ -7,7 +7,7 @@ import FormModal from '../components/FormModal';
 import EditFormModal from '../components/EditFormModal';
 import { useEffect, useState } from 'react';
 
-const headers = ['id', 'nombre', 'telefono', 'correo', 'fecha_registro', 'servicio_id'];
+const headers = ['id', 'nombre'];
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -23,7 +23,7 @@ export default function Page() {
   async function setProducts(page) {
     try {
       setLoading(true)
-      const response = await fetch(`http://127.0.0.1:8000/api/modalservicios?page=${page}`)
+      const response = await fetch(`http://127.0.0.1:8000/api/servicios?page=${page}`)
       const data = await response.json()
       
       console.log('API Response:', data)
@@ -61,7 +61,7 @@ export default function Page() {
 
   const handleCreate = async (formData) => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/modalservicios/', {
+      const response = await fetch('http://127.0.0.1:8000/api/servicios', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function Page() {
 
   const handleUpdate = async (id, formData) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/modalservicios/${id}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/servicios/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export default function Page() {
 
     try {
       console.log(`Eliminando servicio con ID: ${id}`) // Log para debugging
-      const response = await fetch(`http://127.0.0.1:8000/api/modalservicios/${id}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/servicios/${id}`, {
         method: 'DELETE',
       })
 
