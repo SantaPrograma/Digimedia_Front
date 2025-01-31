@@ -20,15 +20,6 @@ export default function Page() {
   const [update, setUpdate] = useState(true)
   const [id, setIdUpdate] = useState(0)
 
-  function opendModal() {
-    setModal(true)
-  }
-
-  function closeModal() {
-    setModal(false)
-  }
-
-
   async function setProducts(page) {
 
     await user_service.userByPage(page)
@@ -41,7 +32,7 @@ export default function Page() {
 
               const fecha = new Date(data.created_at)
 
-              data.created_at = fecha.toLocaleDateString('es-ES'); 
+              data.created_at = fecha.toLocaleDateString('es-ES');
             })
 
             setData(data.data)
@@ -53,6 +44,15 @@ export default function Page() {
           setLoading(false)
         }
       })
+  }
+
+  async function onDelete(id) {
+    console.log(id);
+    
+  }
+
+  async function onUpdate(id) {
+    console.log(id);
   }
 
   useEffect(() => {
@@ -73,10 +73,10 @@ export default function Page() {
     <>
       <main className="p-4 overflow-scroll flex flex-col w-full h-[100vh] flex-1">
         <h2 className="text-4xl font-bold mb-4">Usuarios</h2>
-        <button className='bg-blue-600 text-white p-2 rounded-md mb-4 font-bold' onClick={opendModal}> Crear </button>
-        <Table headers={headers} data={data} />
+        <button className='bg-blue-600 text-white p-2 rounded-md mb-4 font-bold' onClick={() => { setModal(true) }}> Crear </button>
+        <Table headers={headers} data={data} onDelete={onDelete} onUpdate={onUpdate}/>
         <Pagination count={count} />
-        <Modal_usuario isVisible={modal} update={update} id={id} onclose={closeModal} />
+        <Modal_usuario isVisible={modal} update={update} id={id} onclose={() => { setModal(false) }} />
       </main>
     </>
   );

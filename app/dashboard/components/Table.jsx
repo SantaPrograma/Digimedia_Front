@@ -22,12 +22,14 @@ export default function Table({ headers, data, onDelete, onUpdate }) {
         <button 
           className="bg-[#dc3545] text-white rounded-md px-3 py-2 m-2"
           onClick={() => onDelete(dataRow.id)}
+          hidden={onDelete == false}
         >
           Eliminar
         </button>
         <button 
           className="bg-[#ffc107] rounded-md px-3 py-2 m-2"
           onClick={() => onUpdate(dataRow.id)}
+          hidden={onUpdate == false}
         >
           Editar
         </button>
