@@ -70,6 +70,8 @@ export default function Page() {
       <h2 className="text-4xl font-bold mb-4">Sección principal</h2>
       <Table
         headers={headers}
+        onDelete={false}
+        onUpdate={false}
         data={data.map((contact) => ({
           ...contact,
           acciones: (

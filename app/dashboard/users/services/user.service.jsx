@@ -8,32 +8,46 @@ const user_service = {
             body: form,
         }).then((data) => data.json())
     },
+
     userByPage: async (page) => {
         return await fetch(`${api_url}?page=${page}`, {
             method: "GET"
         }).then(data => data.json())
     },
+
     create: async (form) => {
         return await fetch(`${api_url}`, {
             method: "POST",
             body: form,
         }).then(data => data.json())
     },
-    userByUser: async (id) => {
+
+    userById: async (id) => {
         return await fetch(`${api_url}/${id}`, {
             method: "GET"
         }).then(data => data.json())
     },
-    update: async (id) => {
+
+    update: async (form, id) => {
         return await fetch(`${api_url}/${id}`, {
-            method: "PUT"
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form)
         }).then(data => data.json())
     },
-    updatePass: async (id) => {
+
+    updatePass: async (form, id) => {
         return await fetch(`${api_url}/pass/${id}`, {
-            method: "PUT"
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form)
         }).then(data => data.json())
     },
+
     delete: async (id) => {
         return await fetch(`${api_url}/${id}`, {
             method: "DELETE"

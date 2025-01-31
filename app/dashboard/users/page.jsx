@@ -15,10 +15,8 @@ export default function Page() {
   const currentPage = searchParams.get('page') || 1
   const [data, setData] = useState([])
   const [count, setCount] = useState(0)
-
   const [modal, setModal] = useState(false)
-  const [update, setUpdate] = useState(true)
-  const [id, setIdUpdate] = useState(0)
+  const [dataUpd, setdataUpdate] = useState(false)
 
   async function setProducts(page) {
 
@@ -46,26 +44,30 @@ export default function Page() {
       })
   }
 
-  async function onDelete(id) {
-    console.log(id);
-    
+  function onDelete(id) {
+
+    if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) return
+  
+    user_service.delete(id).then(data => {
+      fetchProducts()
+    })
   }
 
-  async function onUpdate(id) {
-    console.log(id);
+  function onUpdate(idUpdate) {
+    setdataUpdate(data.find(r => r.id == idUpdate))
+    setModal(true)
+  }
+
+  const fetchProducts = async () => {
+    if (isNaN(currentPage)) {
+      await setProducts(1)
+      return
+    }
+
+    await setProducts(parseInt(currentPage))
   }
 
   useEffect(() => {
-
-    const fetchProducts = async () => {
-      if (isNaN(currentPage)) {
-        await setProducts(1)
-        return
-      }
-
-      await setProducts(parseInt(currentPage))
-    }
-
     fetchProducts()
   }, [currentPage]) // Re-ejecutar cuando cambia la query
 
@@ -74,9 +76,15 @@ export default function Page() {
       <main className="p-4 overflow-scroll flex flex-col w-full h-[100vh] flex-1">
         <h2 className="text-4xl font-bold mb-4">Usuarios</h2>
         <button className='bg-blue-600 text-white p-2 rounded-md mb-4 font-bold' onClick={() => { setModal(true) }}> Crear </button>
-        <Table headers={headers} data={data} onDelete={onDelete} onUpdate={onUpdate}/>
+        <Table headers={headers} data={data} onDelete={onDelete} onUpdate={onUpdate} />
         <Pagination count={count} />
-        <Modal_usuario isVisible={modal} update={update} id={id} onclose={() => { setModal(false) }} />
+        <Modal_usuario isVisible={modal}
+          data={dataUpd}
+          onclose={() => {
+            setModal(false)
+            setdataUpdate(false)
+            fetchProducts()
+          }} />
       </main>
     </>
   );
