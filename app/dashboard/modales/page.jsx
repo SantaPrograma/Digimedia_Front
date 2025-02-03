@@ -41,7 +41,7 @@ export default function Page() {
       setLoading(false);
     }
 
-    
+
   };
 
   // Función para eliminar un registro por ID
@@ -78,18 +78,10 @@ export default function Page() {
       ) : (
         <>
           <Table
+            onDelete={handleDelete}
+            onUpdate={false}
             headers={headers}
-            data={data.map((item) => ({
-              ...item,
-              acciones: (
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="bg-red-500 text-white px-2 py-1 rounded"
-                >
-                  Eliminar
-                </button>
-              ),
-            }))}
+            data={data}
           />
           <Pagination
             count={totalItems} // 20 es el límite de elementos por página
