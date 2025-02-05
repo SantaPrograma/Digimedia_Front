@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { User, Lock, ArrowLeft } from 'lucide-react';
 import userService from '@/app/dashboard/users/services/user.service';
+import { setCookie } from 'cookies-next';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -22,9 +23,12 @@ export default function LoginPage() {
 
     userService.login(form)
       .then((data) => {
-
         if (parseInt(data.status) === 200) {
-          localStorage.setItem('token', data.token);
+          // Guardar token en cookie en lugar de localStorage
+          setCookie('token', data.token, {
+            maxAge: 30 * 24 * 60 * 60, // 30 días
+            path: '/',
+          });
           router.push('/dashboard/main');
         } else {
           setError(true);
