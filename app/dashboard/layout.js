@@ -1,13 +1,20 @@
+'use client';
 import '../globals.css';
 import Link from 'next/link';
-
-export const metadata = {
-  title: '.:: DigiMedia ::.',
-};
+import AuthGuard from './components/AuthGuard';
+import { useRouter } from 'next/navigation';
+import { deleteCookie } from 'cookies-next';
+import Image from 'next/image';
 
 export default function RootLayout({ children }) {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    deleteCookie('token');
+    router.push('/login');
+  };
   return (
-    <>
+    <AuthGuard>
       <div className="flex bg-[#f9f9f9] w-[100vw] overflow-hidden">
         <div className="flex flex-col shrink-0 p-2 bg-white h-screen">
           <div className="flex gap-2 items-center justify-center my-10">
@@ -15,8 +22,16 @@ export default function RootLayout({ children }) {
             <h1 className="text-2xl font-bold">Digimedia</h1>
           </div>
 
-          <button className="flex gap-2 bg-black text-white px-4 py-3 rounded-lg justify-center mb-5">
-            <img src="/dashboard/logout-icon.svg" alt="" width={20} />
+          <button 
+            onClick={handleLogout}
+            className="flex gap-2 bg-black text-white px-4 py-3 rounded-lg justify-center mb-5"
+          >
+            <Image 
+              src="/dashboard/logout-icon.svg" 
+              alt="Logout icon" 
+              width={20} 
+              height={20}
+            />
             Cerrar sesión
           </button>
 
@@ -43,7 +58,7 @@ export default function RootLayout({ children }) {
         </div>
         {children}
       </div>
-    </>
+    </AuthGuard>
   );
 }
 
