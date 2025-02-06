@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination';
 import Table from '../components/Table';
 //import Pagination from './componentes-modales/Pagination-modales';
 import { useSearchParams } from 'next/navigation';
-
+import { getCookie } from "cookies-next";
 
 
 const headers = ['id', 'nombre', 'telefono', 'email', 'servicio', 'acciones'];
@@ -21,7 +21,11 @@ export default function Page() {
   const fetchData = async (page) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://127.0.0.1:8000/api/modal?page=${page}`);
+      const response = await fetch(`http://127.0.0.1:8000/api/modal?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
+      });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
@@ -49,6 +53,9 @@ export default function Page() {
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/modal/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
       });
 
       if (response.ok) {

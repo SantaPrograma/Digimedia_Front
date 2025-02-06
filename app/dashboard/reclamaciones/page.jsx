@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Pagination from '../components/Pagination';
 import Table from '../components/Table';
 import { useSearchParams } from 'next/navigation'
+import { getCookie } from "cookies-next";
 
 const headers = [
   'id',

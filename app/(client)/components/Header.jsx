@@ -4,8 +4,8 @@ import './Header.css';
 export default function Header2() {
   return (
     <header>
-      <div class="contenidoHeader">
-        <div class="logoHeader d-flex align-items-center">
+      <div className="contenidoHeader">
+        <div className="logoHeader d-flex align-items-center">
           <Link href="/">
             <img
               src="/headerFooter/logoblanco2.webp"
@@ -15,24 +15,24 @@ export default function Header2() {
             />
           </Link>
         </div>
-        <div class="seccionesHeader">
+        <div className="seccionesHeader">
           <input type="checkbox" id="menucheckbox" />
           <label for="menucheckbox">
             <img
               src="/headerFooter/menu.webp"
               alt="menú"
-              class="menuIcono"
+              className="menuIcono"
               width="25"
               height="25"
             />
           </label>
-          <ul class="menuHorizontal">
+          <ul className="menuHorizontal">
             <li>
               <Link href="/">Inicio</Link>
             </li>
             <li disable>
               <p>Servicios &#9660;</p>
-              <ul class="menuVertical">
+              <ul className="menuVertical">
                 <li>
                   <Link href="/servicios/desing-desarrollo">
                     Diseño y Desarrollo Web
@@ -60,7 +60,7 @@ export default function Header2() {
             </li>
             <li>
               <p>Más &#9660;</p>
-              <ul class="menuVertical">
+              <ul className="menuVertical">
                 <li>
                   <Link href="/blog">Blog</Link>
                 </li>

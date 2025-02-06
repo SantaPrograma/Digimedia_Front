@@ -23,6 +23,7 @@ export default function LoginPage() {
 
     userService.login(form)
       .then((data) => {
+
         if (parseInt(data.status) === 200) {
           // Guardar token en cookie en lugar de localStorage
           setCookie('token', data.token, {
@@ -34,8 +35,10 @@ export default function LoginPage() {
           setError(true);
           setLoading(false);
         }
+      }).catch(error => {
+
+        console.log("sadad" +  error);
       });
-    //   });
   };
 
   const handleChange = (e) => {

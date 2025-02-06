@@ -123,14 +123,15 @@ export default function Modal_usuario({ isVisible, onclose, data }) {
                         />
                     </fieldset>
 
-                    <fieldset hidden={data != false} className="flex flex-col gap-3">
-                        <label className="font-medium text-md" htmlFor="email">
+                    <fieldset  className="flex flex-col gap-3">
+                        <label hidden={data != false} className="font-medium text-md" htmlFor="email">
                             Correo
                         </label>
                         <input
                             id="email"
                             onChange={handleChange}
                             value={formData.email}
+                            hidden={data != false}
                             className="border-solid border-gray-300 border-[0.5px] py-2 px-4 outline-none"
                             type="email"
                         />

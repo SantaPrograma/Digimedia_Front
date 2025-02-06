@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const API_BASE_URL = "http://localhost:8000/api/contactanos";
 
@@ -32,7 +33,11 @@ export default function Page() {
 
   async function fetchContacts(page = 1) {
     try {
-      const response = await axios.get(`${API_BASE_URL}?page=${page}`);
+      const response = await axios.get(`${API_BASE_URL}?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
+      });
       setData(response.data.data);
       setTotalPages(response.data.last_page);
     } catch (error) {
@@ -42,7 +47,11 @@ export default function Page() {
 
   async function deleteContact(id) {
     try {
-      await axios.delete(`${API_BASE_URL}/${id}`);
+      await axios.delete(`${API_BASE_URL}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
+      });
       alert("Contacto eliminado exitosamente");
       fetchContacts(currentPage);
     } catch (error) {
@@ -53,7 +62,12 @@ export default function Page() {
   async function toggleContactStatus(id, currentState) {
     try {
       const newStatus = currentState === 0 ? 1 : 0;
-      await axios.put(`${API_BASE_URL}/${id}`, { estado: newStatus });
+      await axios.put(`${API_BASE_URL}/${id}`, {
+        estado: newStatus,
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
+      });
       alert("Estado actualizado exitosamente");
       fetchContacts(currentPage);
     } catch (error) {
@@ -84,11 +98,10 @@ export default function Page() {
               </button>
               <button
                 onClick={() => toggleContactStatus(contact.id, contact.estado)}
-                className={`px-3 py-1 rounded-md ${
-                  contact.estado === 0
-                    ? "bg-yellow-500 hover:bg-yellow-700"
-                    : "bg-green-500 hover:bg-green-700"
-                } text-white`}
+                className={`px-3 py-1 rounded-md ${contact.estado === 0
+                  ? "bg-yellow-500 hover:bg-yellow-700"
+                  : "bg-green-500 hover:bg-green-700"
+                  } text-white`}
               >
                 {contact.estado === 0 ? "Marcar como Atendido" : "Marcar como Pendiente"}
               </button>
