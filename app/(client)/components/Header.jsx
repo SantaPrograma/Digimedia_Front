@@ -3,7 +3,7 @@ import './Header.css';
 
 export default function Header2() {
   return (
-    <header>
+    <header className="header">
       <div className="contenidoHeader">
         <div className="logoHeader d-flex align-items-center">
           <Link href="/">
@@ -17,7 +17,7 @@ export default function Header2() {
         </div>
         <div className="seccionesHeader">
           <input type="checkbox" id="menucheckbox" />
-          <label for="menucheckbox">
+          <label htmlFor="menucheckbox">
             <img
               src="/headerFooter/menu.webp"
               alt="menú"
@@ -30,7 +30,7 @@ export default function Header2() {
             <li>
               <Link href="/">Inicio</Link>
             </li>
-            <li disable>
+            <li disabled={true}>
               <p>Servicios &#9660;</p>
               <ul className="menuVertical">
                 <li>
