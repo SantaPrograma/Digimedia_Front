@@ -8,8 +8,7 @@ import Clientes from "./components/Home_Components/Clientes";
 export default function Home() {
   return (
     <>
-      <section className="relative h-screen w-full">
-        <img src="/image-home/inicio.webp" alt="Banner" className="relative h-screen w-full" />
+      <section className="bg-[url(/image-home/inicio.webp)] bg-cover bg-[30%] h-[calc(100vh-67px)] relative">
         <div className="mb-[200px] absolute inset-0 flex items-end justify-start">
           <div className="flex flex-col items-start space-y-4">
             <div className="clip-path-polygon text-white relative text-left h-[200px] w-[700px] bg-[rgba(123,34,179,0.5)] 
