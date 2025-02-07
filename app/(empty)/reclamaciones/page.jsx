@@ -7,77 +7,92 @@ const ComplaintForm = () => {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
-    tipoDocumento: '',
-    documento: '',
-    correo: '',
+    documento: '', // Cambiado de tipoDocumento
+    numeroDocumento: '', // Cambiado de documento
+    email: '', // Cambiado de correo
     celular: '',
     direccion: '',
     distrito: '',
     ciudad: '',
     tipoReclamo: '',
     servicioContratado: '',
-    incidente: '',
-    aceptaPoliticas: false,
-    conoceReclamo: false,
+    reclamoPerson: '', // Cambiado de incidente
+    checkReclamoForm: 'false', // Cambiado de conoceReclamo
+    aceptaPoliticaPrivacidad: 'false' // Cambiado de aceptaPoliticas
   });
 
-  const [mensaje, setMensaje] = useState('');  // Estado para el mensaje de respuesta
-  const [error, setError] = useState(''); // Estado para manejar errores de validación
+  
+  const [mensaje, setMensaje] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked.toString() : value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validación: ambas casillas deben estar marcadas
-    if (!formData.conoceReclamo || !formData.aceptaPoliticas) {
-      setError('Debes aceptar las políticas de privacidad y ser consciente de la formulación del reclamo.');
-      return;
-    }
-
-    setError(''); // Limpiar mensaje de error si pasa la validación
+    
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setError('');
+    setMensaje('');
 
     try {
-      const response = await fetch('/api/reclamos', {  // Consumo de la API
+      const response = await fetch('http://127.0.0.1:8000/api/reclamaciones', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify(formData),  // Envío de los datos del formulario
+        body: JSON.stringify(formData),
       });
 
+      const contentType = response.headers.get('content-type');
+      let result = {};
+
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        result.message = await response.text();
+      }
+
       if (response.ok) {
-        const result = await response.json();
-        setMensaje('Su solicitud fue enviada correctamente.');  // Mensaje de éxito
-        console.log('Respuesta del servidor:', result);
+        setMensaje('Su solicitud fue enviada correctamente.');
         setFormData({
           nombre: '',
           apellido: '',
-          tipoDocumento: '',
           documento: '',
-          correo: '',
+          numeroDocumento: '',
+          email: '',
           celular: '',
           direccion: '',
           distrito: '',
           ciudad: '',
           tipoReclamo: '',
           servicioContratado: '',
-          incidente: '',
-          aceptaPoliticas: false,
-          conoceReclamo: false,
+          reclamoPerson: '',
+          checkReclamoForm: 'false',
+          aceptaPoliticaPrivacidad: 'false'
         });
       } else {
-        setMensaje('Hubo un error al enviar el reclamo. Por favor, intenta nuevamente.');  // Mensaje de error
+        const errorMessage = result.message || result.error || 'Hubo un error al enviar el reclamo. Por favor, intenta nuevamente.';
+        setError(errorMessage);
+        console.error('Detalles del error:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: result
+        });
       }
     } catch (error) {
-      console.error('Error al enviar los datos:', error);
-      setMensaje('Error de red. Por favor, intenta nuevamente.');  // Mensaje de error
+      console.error('Error de red:', error);
+      setError('Error de conexión. Por favor, verifica tu conexión a internet e intenta nuevamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -105,13 +120,13 @@ const ComplaintForm = () => {
           <h2 className="text-2xl font-bold text-center mb-6">Cuestionario de quejas</h2>
 
           {mensaje && (
-            <div className={`text-center mb-4 p-4 ${mensaje.includes('error') ? 'text-red-500' : 'text-green-500'}`}>
+            <div className="text-center mb-4 p-4 text-green-500 bg-green-50 border border-green-200 rounded">
               {mensaje}
             </div>
           )}
 
           {error && (
-            <div className="text-center mb-4 p-4 text-red-500">
+            <div className="text-center mb-4 p-4 text-red-500 bg-red-50 border border-red-200 rounded">
               {error}
             </div>
           )}
@@ -127,6 +142,7 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   placeholder="Nombre"
                   className="w-full p-2 border rounded"
+                  required
                 />
                 <input
                   type="text"
@@ -135,14 +151,16 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   placeholder="Apellido"
                   className="w-full p-2 border rounded"
+                  required
                 />
                 <select
-                  name="tipoDocumento"
-                  value={formData.tipoDocumento}
+                  name="documento"
+                  value={formData.documento}
                   onChange={handleChange}
                   className="w-full p-2 border rounded"
+                  required
                 >
-                  <option value="">Seleccionar una opción</option>
+                  <option value="">Tipo de Documento</option>
                   <option value="DNI">DNI</option>
                   <option value="RUC">RUC</option>
                   <option value="CE">CE</option>
@@ -151,19 +169,21 @@ const ComplaintForm = () => {
                 </select>
                 <input
                   type="text"
-                  name="documento"
-                  value={formData.documento}
+                  name="numeroDocumento"
+                  value={formData.numeroDocumento}
                   onChange={handleChange}
-                  placeholder="Documento"
+                  placeholder="Número de Documento"
                   className="w-full p-2 border rounded"
+                  required
                 />
                 <input
                   type="email"
-                  name="correo"
-                  value={formData.correo}
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   placeholder="Correo Electrónico"
                   className="w-full p-2 border rounded"
+                  required
                 />
                 <input
                   type="tel"
@@ -172,6 +192,7 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   placeholder="Celular"
                   className="w-full p-2 border rounded"
+                  required
                 />
               </div>
 
@@ -183,6 +204,7 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   placeholder="Dirección"
                   className="w-full p-2 border rounded"
+                  required
                 />
                 <input
                   type="text"
@@ -191,6 +213,7 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   placeholder="Distrito"
                   className="w-full p-2 border rounded"
+                  required
                 />
                 <input
                   type="text"
@@ -199,6 +222,7 @@ const ComplaintForm = () => {
                   onChange={handleChange}
                   placeholder="Ciudad"
                   className="w-full p-2 border rounded"
+                  required
                 />
               </div>
             </div>
@@ -211,8 +235,9 @@ const ComplaintForm = () => {
                   value={formData.tipoReclamo}
                   onChange={handleChange}
                   className="w-full p-2 border rounded"
+                  required
                 >
-                  <option value="">Seleccionar tipo de reclamo</option>
+                  <option value="">Tipo de reclamo</option>
                   <option value="QUEJA">QUEJA</option>
                   <option value="RECLAMO">RECLAMO</option>
                 </select>
@@ -221,18 +246,20 @@ const ComplaintForm = () => {
                   value={formData.servicioContratado}
                   onChange={handleChange}
                   className="w-full p-2 border rounded"
+                  required
                 >
-                  <option value="">Seleccionar servicio contratado</option>
+                  <option value="">Servicio contratado</option>
                   <option value="TECHNOLOGY">TECHNOLOGY</option>
                   <option value="OTROS">OTROS</option>
                 </select>
               </div>
               <textarea
-                name="incidente"
-                value={formData.incidente}
+                name="reclamoPerson"
+                value={formData.reclamoPerson}
                 onChange={handleChange}
                 placeholder="Indicar incidente"
                 className="w-full p-2 border rounded h-32"
+                required
               />
             </div>
 
@@ -240,10 +267,11 @@ const ComplaintForm = () => {
               <div className="flex items-start">
                 <input
                   type="checkbox"
-                  name="conoceReclamo"
-                  checked={formData.conoceReclamo}
+                  name="checkReclamoForm"
+                  checked={formData.checkReclamoForm === 'true'}
                   onChange={handleChange}
                   className="mt-1 mr-2"
+                  required
                 />
                 <p className="text-sm">
                   Soy consciente que la formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI. *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, de acuerdo a la Ley 29571
@@ -253,10 +281,11 @@ const ComplaintForm = () => {
               <div className="flex items-start">
                 <input
                   type="checkbox"
-                  name="aceptaPoliticas"
-                  checked={formData.aceptaPoliticas}
+                  name="aceptaPoliticaPrivacidad"
+                  checked={formData.aceptaPoliticaPrivacidad === 'true'}
                   onChange={handleChange}
                   className="mt-1 mr-2"
+                  required
                 />
                 <p className="text-sm">
                   Acepto las Políticas de Privacidad.
@@ -266,10 +295,16 @@ const ComplaintForm = () => {
 
             <button
               type="submit"
-              className={`w-full p-2 rounded transition-all duration-300 ${formData.aceptaPoliticas && formData.conoceReclamo ? 'bg-[#6f4be8] hover:bg-[#5c40d1]' : 'bg-gray-400 cursor-not-allowed'}`}
-              disabled={!formData.aceptaPoliticas || !formData.conoceReclamo} // Deshabilitar si alguna casilla no está marcada
+              className={`w-full p-2 rounded text-white transition-all duration-300 ${
+                isSubmitting 
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : formData.aceptaPoliticaPrivacidad === 'true' && formData.checkReclamoForm === 'true'
+                    ? 'bg-[#6f4be8] hover:bg-[#5c40d1]' 
+                    : 'bg-gray-400 cursor-not-allowed'
+              }`}
+              disabled={isSubmitting || formData.aceptaPoliticaPrivacidad === 'false' || formData.checkReclamoForm === 'false'}
             >
-              Enviar Reclamación
+              {isSubmitting ? 'Enviando...' : 'Enviar Reclamación'}
             </button>
           </form>
         </div>
