@@ -21,6 +21,7 @@ const ComplaintForm = () => {
     aceptaPoliticaPrivacidad: 'false' // Cambiado de aceptaPoliticas
   });
 
+  
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);

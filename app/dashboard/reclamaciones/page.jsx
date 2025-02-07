@@ -277,6 +277,7 @@ const EditButton = ({ data, onUpdate }) => {
   )
 }
 
+
 export default function Page() {
   const searchParams = useSearchParams()
   const currentPage = searchParams.get('page') || 1
