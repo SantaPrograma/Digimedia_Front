@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 export default function ModalScroll({ text, fondo, title, serviceName }) {
   const modalRef = useRef(null);
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    service: serviceName,
+    nombre: '',
+    telefono: '',
+    correo: '',
+    servicio_id: serviceName,
   });
 
   const hideModal = () => {
@@ -39,7 +39,7 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost/api/modal', {
+      const response = await fetch('https://back.digimediamkt.com/api/modal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,29 +91,29 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
             <Input
               label="Nombre"
               type="text"
-              name="name"
-              value={formData.name}
+              name="nombre"
+              value={formData.nombre}
               onChange={handleChange}
             />
             <Input
               label="Teléfono"
               type="text"
-              name="phone"
-              value={formData.phone}
+              name="telefono"
+              value={formData.telefono}
               onChange={handleChange}
             />
             <Input
               label="Correo"
               type="email"
-              name="email"
-              value={formData.email}
+              name="correo"
+              value={formData.correo}
               onChange={handleChange}
             />
             {/* Incluye el servicio como un campo oculto */}
             <input
               type="hidden"
-              name="service"
-              value={formData.service}
+              name="servicio_id"
+              value={formData.servicio_id}
               readOnly
             />
             <button className="bg-[#0095ff] p-2 text-2xl font-bold rounded-2xl mt-4">

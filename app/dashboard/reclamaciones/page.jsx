@@ -314,7 +314,7 @@ export default function Page() {
   const fetchData = async (page) => {
     try {
       setLoading(true)
-      const response = await fetch(`http://127.0.0.1:8000/api/reclamaciones?page=${page}`)
+      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones?page=${page}`)
       const result = await response.json()
       
       if (response.ok) {
@@ -330,7 +330,7 @@ export default function Page() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/reclamaciones/${id}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones/${id}`, {
         method: 'DELETE'
       })
       
@@ -344,7 +344,7 @@ export default function Page() {
 
   const handleUpdate = async (updatedData) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/reclamaciones/${updatedData.id}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones/${updatedData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

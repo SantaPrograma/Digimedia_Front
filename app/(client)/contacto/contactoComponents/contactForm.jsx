@@ -26,7 +26,7 @@ const ContactForm = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost/api/contactanos", {
+      const response = await fetch("https://back.digimediamkt.com/api/contactanos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -21,7 +21,7 @@ export default function Page() {
   const fetchData = async (page) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://127.0.0.1:8000/api/modal?page=${page}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/modal?page=${page}`, {
         headers: {
           Authorization: `Bearer ${getCookie('token')}`,
         }
@@ -51,7 +51,7 @@ export default function Page() {
   // Función para eliminar un registro por ID
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/modal/${id}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/modal/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${getCookie('token')}`,

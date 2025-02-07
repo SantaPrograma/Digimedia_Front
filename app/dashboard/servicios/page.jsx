@@ -24,7 +24,7 @@ export default function Page() {
   async function setProducts(page) {
     try {
       setLoading(true)
-      const response = await fetch(`http://127.0.0.1:8000/api/servicios?page=${page}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/servicios?page=${page}`, {
         headers: {
           Authorization: `Bearer ${getCookie('token')}`,
         }
@@ -66,7 +66,7 @@ export default function Page() {
 
   const handleCreate = async (formData) => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/servicios', {
+      const response = await fetch('https://back.digimediamkt.com/api/servicios', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export default function Page() {
 
   const handleUpdate = async (id, formData) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/servicios/${id}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/servicios/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export default function Page() {
 
     try {
       console.log(`Eliminando servicio con ID: ${id}`) // Log para debugging
-      const response = await fetch(`http://127.0.0.1:8000/api/servicios/${id}`, {
+      const response = await fetch(`https://back.digimediamkt.com/api/servicios/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${getCookie('token')}`,

@@ -8,7 +8,7 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
   // Estados para los campos del formulario
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
-  const [email, setEmail] = useState('');
+  const [correo, setEmail] = useState('');
 
   const hideModal = () => {
     modalRef.current.classList.add('hidden');
@@ -35,7 +35,7 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
     };
 
     // Enviar los datos al backend usando fetch
-    fetch('http://127.0.0.1:8000/api/modal', {
+    fetch('https://back.digimediamkt.com/api/modal', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,22 +75,22 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
             <Input
               label="Nombre"
               type="text"
-              name="name"
+              name="nombre"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
             <Input
               label="Teléfono"
               type="text"
-              name="phone"
+              name="telefono"
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
             <Input
               label="Correo"
               type="email"
-              name="email"
-              value={email}
+              name="correo"
+              value={correo}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button className="bg-[#a121fd] font-bold p-4 rounded-lg" type="submit">

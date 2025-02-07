@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 
-const API_BASE_URL = "http://localhost:8000/api/contactanos";
+const API_BASE_URL = "https://back.digimediamkt.com/api/contactanos";
 
 const headers = [
   "id",

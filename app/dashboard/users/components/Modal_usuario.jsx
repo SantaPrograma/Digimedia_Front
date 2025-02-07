@@ -86,7 +86,6 @@ export default function Modal_usuario({ isVisible, onclose, data }) {
                 setError({ status: true, message: "Hubo un error intentalo de nuevo" })
                 setButtonStatus(true)
             }
-
         })
     }
 
