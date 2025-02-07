@@ -30,12 +30,12 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
     const data = {
       nombre,
       telefono,
-      email,
-      servicio: serviceName,
+      correo,
+      servicio_id: serviceName,
     };
 
     // Enviar los datos al backend usando fetch
-    fetch('http://localhost/api/modal', {
+    fetch('http://127.0.0.1:8000/api/modal', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

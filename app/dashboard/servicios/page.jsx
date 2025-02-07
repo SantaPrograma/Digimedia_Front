@@ -6,6 +6,7 @@ import Table from '../components/Table';
 import FormModal from '../components/FormModal';
 import EditFormModal from '../components/EditFormModal';
 import { useEffect, useState } from 'react';
+import { getCookie } from "cookies-next";
 
 const headers = ['id', 'nombre'];
 
@@ -23,11 +24,15 @@ export default function Page() {
   async function setProducts(page) {
     try {
       setLoading(true)
-      const response = await fetch(`http://127.0.0.1:8000/api/servicios?page=${page}`)
+      const response = await fetch(`http://127.0.0.1:8000/api/servicios?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
+      })
       const data = await response.json()
-      
+
       console.log('API Response:', data)
-      
+
       if (data && Array.isArray(data.data)) {
         setData(data.data)
         setCount(data.total || data.data.length)
@@ -65,6 +70,7 @@ export default function Page() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "authorization": `Bearer ${getCookie('token')}`
         },
         body: JSON.stringify(formData)
       })
@@ -84,6 +90,7 @@ export default function Page() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          "authorization": `Bearer ${getCookie('token')}`
         },
         body: JSON.stringify(formData)
       })
@@ -105,6 +112,9 @@ export default function Page() {
       console.log(`Eliminando servicio con ID: ${id}`) // Log para debugging
       const response = await fetch(`http://127.0.0.1:8000/api/servicios/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
       })
 
       if (response.ok) {
@@ -121,7 +131,7 @@ export default function Page() {
   return (
     <main className="p-4 overflow-scroll flex flex-col w-full h-[100vh] flex-1">
       <h2 className="text-4xl font-bold mb-4">Servicios</h2>
-      <button 
+      <button
         className='bg-blue-600 text-white p-2 rounded-md mb-4 font-bold'
         onClick={() => {
           setCurrentService(null)
@@ -130,16 +140,16 @@ export default function Page() {
       >
         Crear
       </button>
-      
+
       {loading ? (
         <div className="text-center">Cargando...</div>
       ) : error ? (
         <div className="text-red-500">Error al cargar los datos</div>
       ) : (
         <>
-          <Table 
-            headers={headers} 
-            data={data} 
+          <Table
+            headers={headers}
+            data={data}
             onDelete={handleDelete}
             onUpdate={(id) => {
               const service = data.find(item => item.id === id)
@@ -152,14 +162,14 @@ export default function Page() {
       )}
 
       {showModal && (
-        <FormModal 
+        <FormModal
           onClose={() => setShowModal(false)}
           onSubmit={handleCreate}
         />
       )}
 
       {showEditModal && (
-        <EditFormModal 
+        <EditFormModal
           onClose={() => setShowEditModal(false)}
           onSubmit={(formData) => handleUpdate(currentService.id, formData)}
           initialData={currentService}

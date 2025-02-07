@@ -36,14 +36,14 @@ export default function Page() {
         text="¡INCREMENTA TUS VENTAS!"
         fondo="/servicios/marketing/modal-scroll/fondo.webp"
         title="HAZLO Y CUMPLE TUS SUEÑOS ¡ASESORÍA GRATIS!"
-        serviceName="Marketing y Gestión"
+        serviceName="3"
       />
 
       <ModalButton
         title="¡EXPLOTA EL CONTENIDO DE TUS REDES!"
         fondo="/servicios/marketing/modal-button/imagen.webp"
         text="¡Haz tu sitio web realidad, es GRATIS!"
-        serviceName="Marketing y Gestión"
+        serviceName="3"
       />
 
       <Main

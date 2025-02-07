@@ -1,17 +1,21 @@
 
 const api_url = "http://127.0.0.1:8000/api/user"
+import { getCookie } from "cookies-next";
 
 const user_service = {
     login: async (form) => {
         return await fetch(`${api_url}/login`, {
             method: 'POST',
             body: form,
-        }).then((data) => data.json())
+        }).then((data) => data.json());
     },
 
     userByPage: async (page) => {
         return await fetch(`${api_url}?page=${page}`, {
-            method: "GET"
+            method: "GET",
+            headers:{
+                "authorization": `Bearer ${getCookie('token')}`
+            }
         }).then(data => data.json())
     },
 
@@ -19,12 +23,18 @@ const user_service = {
         return await fetch(`${api_url}`, {
             method: "POST",
             body: form,
+            headers:{
+                "authorization": `Bearer ${getCookie('token')}`
+            }
         }).then(data => data.json())
     },
 
     userById: async (id) => {
         return await fetch(`${api_url}/${id}`, {
-            method: "GET"
+            method: "GET",
+            headers:{
+                "authorization": `Bearer ${getCookie('token')}`
+            }
         }).then(data => data.json())
     },
 
@@ -33,6 +43,7 @@ const user_service = {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
+                "authorization": `Bearer ${getCookie('token')}`
             },
             body: JSON.stringify(form)
         }).then(data => data.json())
@@ -43,6 +54,7 @@ const user_service = {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
+                "authorization": `Bearer ${getCookie('token')}`
             },
             body: JSON.stringify(form)
         }).then(data => data.json())
@@ -50,7 +62,10 @@ const user_service = {
 
     delete: async (id) => {
         return await fetch(`${api_url}/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "authorization": `Bearer ${getCookie('token')}`
+            }
         }).then(data => data.json())
     }
 }

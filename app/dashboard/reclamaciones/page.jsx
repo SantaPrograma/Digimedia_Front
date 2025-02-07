@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import Pagination from '../components/Pagination'
 import { useSearchParams } from 'next/navigation'
-//import EditButton from '../components/EditButton'
 
 const headers = [
   'id',
