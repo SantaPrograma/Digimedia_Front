@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Pagination from '../components/Pagination'
 import { useSearchParams } from 'next/navigation'
+import { getCookie } from 'cookies-next'
 
 const headers = [
   'id',
@@ -40,8 +41,8 @@ const Table = ({ headers, data, renderActions }) => {
           <tr key={item.id} className="odd:bg-[#f2f2f2]">
             {headers.map((header) => (
               <td key={header} className="p-2 border-b">
-                {header === 'acciones' 
-                  ? renderActions(item) 
+                {header === 'acciones'
+                  ? renderActions(item)
                   : item[header]}
               </td>
             ))}
@@ -211,7 +212,7 @@ const EditButton = ({ data, onUpdate }) => {
                   <option value="OTROS">OTROS</option>
                 </select>
               </div>
-              
+
               <textarea
                 name="reclamoPerson"
                 value={formData.reclamoPerson}
@@ -314,9 +315,13 @@ export default function Page() {
   const fetchData = async (page) => {
     try {
       setLoading(true)
-      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones?page=${page}`)
+      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
+      })
       const result = await response.json()
-      
+
       if (response.ok) {
         setData(transformData(result.data))
         setTotalItems(result.total)
@@ -331,9 +336,12 @@ export default function Page() {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
+        }
       })
-      
+
       if (response.ok) {
         fetchData(currentPage)
       }
@@ -348,6 +356,8 @@ export default function Page() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${getCookie('token')}`,
+
         },
         body: JSON.stringify({
           ...updatedData,
@@ -356,7 +366,7 @@ export default function Page() {
           aceptaPoliticaPrivacidad: updatedData.aceptaPoliticaPrivacidad.toString()
         }),
       })
-      
+
       if (response.ok) {
         fetchData(currentPage)
       }
@@ -373,27 +383,27 @@ export default function Page() {
   return (
     <main className="p-4 overflow-scroll flex flex-col w-full h-[100vh] flex-1">
       <h2 className="text-4xl font-bold mb-4">Libro de Reclamaciones</h2>
-      
+
       {loading && <div className="text-center p-4">Cargando...</div>}
-      
+
       <Table
         headers={headers}
         data={data}
         renderActions={(rowData) => (
           <div className="flex gap-2">
-            <EditButton 
-              data={rowData} 
+            <EditButton
+              data={rowData}
               onUpdate={handleUpdate}
             />
-            <DeleteButton 
-              id={rowData.id} 
+            <DeleteButton
+              id={rowData.id}
               onDelete={handleDelete}
             />
           </div>
         )}
       />
-      
-      <Pagination 
+
+      <Pagination
         count={Math.ceil(totalItems / itemsPerPage)}
         currentPage={isNaN(currentPage) ? 1 : parseInt(currentPage)}
       />

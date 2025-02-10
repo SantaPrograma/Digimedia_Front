@@ -3,15 +3,23 @@ import '../globals.css';
 import Link from 'next/link';
 import AuthGuard from './components/AuthGuard';
 import { useRouter } from 'next/navigation';
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import Image from 'next/image';
 
 export default function RootLayout({ children }) {
   const router = useRouter();
 
-  const handleLogout = () => {
-    deleteCookie('token');
-    router.push('/login');
+  const handleLogout = async () => {
+
+    await fetch("https://back.digimediamkt.com/api/logout", {
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
+      },
+    }).then(data => data.json() ?? false).then(data => {
+      deleteCookie('token');
+      router.push('/login');
+    })
+
   };
   return (
     <AuthGuard>
@@ -22,14 +30,14 @@ export default function RootLayout({ children }) {
             <h1 className="text-2xl font-bold">Digimedia</h1>
           </div>
 
-          <button 
+          <button
             onClick={handleLogout}
             className="flex gap-2 bg-black text-white px-4 py-3 rounded-lg justify-center mb-5"
           >
-            <Image 
-              src="/dashboard/logout-icon.svg" 
-              alt="Logout icon" 
-              width={20} 
+            <Image
+              src="/dashboard/logout-icon.svg"
+              alt="Logout icon"
+              width={20}
               height={20}
             />
             Cerrar sesión
