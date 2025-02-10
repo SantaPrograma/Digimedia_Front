@@ -15,10 +15,22 @@ export default function Banner() {
           </p>
         </div>
         <Link
-          className="btn-grad text-white bg-[#7B22B3] px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-[#682199] transition-all duration-300 transform hover:-translate-y-1 mx-24 mt-5 mb-8"
+          className="relative inline-flex items-center justify-center text-white font-bold px-8 py-4 rounded-full overflow-hidden shadow-md bg-gradient-to-r from-[#7B22B3] to-[#9C27B0] hover:from-[#682199] hover:to-[#8A2BE2] transition-all duration-500 transform hover:-translate-y-1 hover:shadow-lg focus:outline-none group mx-auto md:mx-0 mt-5 mb-8 translate-x-[5rem]" // Mover el botón 5rem a la derecha
           href="/contacto"
         >
-          ¡Contáctanos!
+
+          <span className="relative z-10">¡CONTÁCTANOS!</span>
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#FCEE21]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#FCEE21]/10 via-[#FCEE21]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></span>
+
+          {/* Icono de flecha */}
+          <svg
+            className="absolute right-4 w-5 h-5 fill-white transition-transform duration-300 group-hover:translate-x-2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
         </Link>
       </div>
     </main>
