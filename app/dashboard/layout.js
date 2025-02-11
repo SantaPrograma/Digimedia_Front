@@ -2,23 +2,18 @@
 import '../globals.css';
 import Link from 'next/link';
 import AuthGuard from './components/AuthGuard';
-import { useRouter } from 'next/navigation';
-import { deleteCookie, getCookie } from 'cookies-next';
 import Image from 'next/image';
+import user_service from './users/services/user.service';
 
 export default function RootLayout({ children }) {
-  const router = useRouter();
+
 
   const handleLogout = async () => {
 
-    await fetch("https://back.digimediamkt.com/api/logout", {
-      headers: {
-        Authorization: `Bearer ${getCookie('token')}`,
-      },
-    }).then(data => data.json() ?? false).then(data => {
-      deleteCookie('token');
-      router.push('/login');
-    })
+    await user_service.logoutServer()
+      .then(data => {
+        user_service.logoutClient()
+      })
 
   };
   return (

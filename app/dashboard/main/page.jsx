@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import user_service from "../users/services/user.service";
 
-const API_BASE_URL = "https://back.digimediamkt.com/api/contactanos";
+// const API_BASE_URL = "https://back.digimediamkt.com/api/contactanos";
+const API_BASE_URL = "http://127.0.0.1:8000/api/contactanos"
 
 const headers = [
   "id",
@@ -30,6 +32,7 @@ export default function Page() {
   const currentPage = searchParams.get("page") || 1;
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const router = useRouter();
 
   async function fetchContacts(page = 1) {
     try {
@@ -41,7 +44,7 @@ export default function Page() {
       setData(response.data.data);
       setTotalPages(response.data.last_page);
     } catch (error) {
-      console.error("Error al obtener contactos:", error);
+      user_service.logoutClient(router);
     }
   }
 
@@ -55,7 +58,7 @@ export default function Page() {
       alert("Contacto eliminado exitosamente");
       fetchContacts(currentPage);
     } catch (error) {
-      console.error("Error al eliminar contacto:", error);
+      user_service.logoutClient(router);
     }
   }
 
@@ -71,7 +74,7 @@ export default function Page() {
       alert("Estado actualizado exitosamente");
       fetchContacts(currentPage);
     } catch (error) {
-      console.error("Error al actualizar el estado del contacto:", error);
+      user_service.logoutClient(router);
     }
   }
 

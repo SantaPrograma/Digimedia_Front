@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import Pagination from '../components/Pagination'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { getCookie } from 'cookies-next'
+import user_service from '../users/services/user.service'
 
 const headers = [
   'id',
@@ -285,6 +286,9 @@ export default function Page() {
   const [totalItems, setTotalItems] = useState(0)
   const [loading, setLoading] = useState(false)
   const itemsPerPage = 20
+  // const API_URL = "https://back.digimediamkt.com/api/reclamaciones";
+  const API_URL = "http://127.0.0.1:8000/api/reclamaciones"
+  const router = useRouter()
 
   const transformData = (apiData) => {
     return apiData.map(item => ({
@@ -313,66 +317,47 @@ export default function Page() {
   }
 
   const fetchData = async (page) => {
-    try {
-      setLoading(true)
-      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('token')}`,
-        }
-      })
-      const result = await response.json()
 
-      if (response.ok) {
-        setData(transformData(result.data))
-        setTotalItems(result.total)
+    setLoading(true)
+    await fetch(`${API_URL}?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
       }
-    } catch (error) {
-      console.error('Error:', error)
-    } finally {
+    }).then((data) => {
+      if (data.status == 500) {
+        user_service.logoutClient(router);
+      } else {
+        return data.json()
+      }
+    }).then(data => {
+
+      setData(transformData(data.data))
+      setTotalItems(data.total)
+
+    }).catch(err => {
+      
+
+    }).finally(() => {
       setLoading(false)
-    }
+    })
+
   }
 
   const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${getCookie('token')}`,
-        }
-      })
 
-      if (response.ok) {
-        fetchData(currentPage)
+    await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
       }
-    } catch (error) {
+    }).then(data => {
+
+      fetchData(currentPage)
+
+    }).catch(err => {
       console.error('Error eliminando:', error)
-    }
-  }
 
-  const handleUpdate = async (updatedData) => {
-    try {
-      const response = await fetch(`https://back.digimediamkt.com/api/reclamaciones/${updatedData.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getCookie('token')}`,
-
-        },
-        body: JSON.stringify({
-          ...updatedData,
-          // Asegurar que los checkboxes se envíen como strings
-          checkReclamoForm: updatedData.checkReclamoForm.toString(),
-          aceptaPoliticaPrivacidad: updatedData.aceptaPoliticaPrivacidad.toString()
-        }),
-      })
-
-      if (response.ok) {
-        fetchData(currentPage)
-      }
-    } catch (error) {
-      console.error('Error actualizando:', error)
-    }
+    })
   }
 
   useEffect(() => {
@@ -391,10 +376,6 @@ export default function Page() {
         data={data}
         renderActions={(rowData) => (
           <div className="flex gap-2">
-            <EditButton
-              data={rowData}
-              onUpdate={handleUpdate}
-            />
             <DeleteButton
               id={rowData.id}
               onDelete={handleDelete}

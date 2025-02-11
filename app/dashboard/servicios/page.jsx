@@ -7,12 +7,17 @@ import FormModal from '../components/FormModal';
 import EditFormModal from '../components/EditFormModal';
 import { useEffect, useState } from 'react';
 import { getCookie } from "cookies-next";
+import user_service from '../users/services/user.service';
+import { useRouter } from 'next/navigation';
 
 const headers = ['id', 'nombre'];
 
 export default function Page() {
   const searchParams = useSearchParams()
   const currentPage = searchParams.get('page') || 1
+  // const API_URL = "https://back.digimediamkt.com/api/servicios";
+  const API_URL = "http://127.0.0.1:8000/api/servicios"
+  const router = useRouter()
   const [data, setData] = useState([])
   const [count, setCount] = useState(0)
   const [error, setError] = useState(false)
@@ -22,35 +27,31 @@ export default function Page() {
   const [currentService, setCurrentService] = useState(null)
 
   async function setProducts(page) {
-    try {
-      setLoading(true)
-      const response = await fetch(`https://back.digimediamkt.com/api/servicios?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('token')}`,
-        }
-      })
-      const data = await response.json()
 
-      console.log('API Response:', data)
-
-      if (data && Array.isArray(data.data)) {
-        setData(data.data)
-        setCount(data.total || data.data.length)
-        setError(false)
-      } else {
-        console.error('Formato de datos inválido:', data)
-        setError(true)
+    setLoading(true)
+    await fetch(`${API_URL}?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
       }
-    } catch (err) {
-      console.error('Error detallado:', {
-        message: err.message,
-        status: err.status,
-        response: err.response
-      })
+    }).then((data) => {
+      if (data.status == 500) {
+        user_service.logoutClient(router);
+      } else {
+        return data.json()
+      }
+    }).then(data => {
+
+      setData(data.data)
+      setCount(data.total || data.data.length)
+      setError(false)
+
+    }).catch(err => {
       setError(true)
-    } finally {
+
+    }).finally(() => {
       setLoading(false)
-    }
+    })
+
   }
 
   useEffect(() => {
@@ -65,67 +66,71 @@ export default function Page() {
   }, [currentPage])
 
   const handleCreate = async (formData) => {
-    try {
-      const response = await fetch('https://back.digimediamkt.com/api/servicios', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          "authorization": `Bearer ${getCookie('token')}`
-        },
-        body: JSON.stringify(formData)
-      })
-
-      if (response.ok) {
-        setShowModal(false)
-        await setProducts(currentPage)
+    await fetch(`${API_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "authorization": `Bearer ${getCookie('token')}`
+      },
+      body: JSON.stringify(formData)
+    }).then((data) => {
+      if (data.status == 500) {
+        user_service.logoutClient(router);
+      } else {
+        return data.json()
       }
-    } catch (error) {
+    }).then(async data => {
+      setShowModal(false)
+      await setProducts(currentPage)
+    }).catch(err => {
       console.error('Error:', error)
-    }
+    })
   }
 
   const handleUpdate = async (id, formData) => {
-    try {
-      const response = await fetch(`https://back.digimediamkt.com/api/servicios/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          "authorization": `Bearer ${getCookie('token')}`
-        },
-        body: JSON.stringify(formData)
-      })
-
-      if (response.ok) {
-        setShowEditModal(false)
-        await setProducts(currentPage)
+    await fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        "authorization": `Bearer ${getCookie('token')}`
+      },
+      body: JSON.stringify(formData)
+    }).then((data) => {
+      if (data.status == 500) {
+        user_service.logoutClient(router);
+      } else {
+        return data.json()
       }
-    } catch (error) {
+    }).then(async data => {
+      setShowEditModal(false)
+      await setProducts(currentPage)
+    }).catch(err => {
       console.error('Error al actualizar el servicio:', error)
-    }
+    })
+
   }
 
   const handleDelete = async (id) => {
     const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este servicio?')
     if (!confirmDelete) return
 
-    try {
-      console.log(`Eliminando servicio con ID: ${id}`) // Log para debugging
-      const response = await fetch(`https://back.digimediamkt.com/api/servicios/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${getCookie('token')}`,
-        }
-      })
-
-      if (response.ok) {
-        console.log(`Servicio con ID: ${id} eliminado correctamente`) // Log para debugging
-        await setProducts(currentPage)
-      } else {
-        console.error(`Error al eliminar el servicio con ID: ${id}`)
+    await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
       }
-    } catch (error) {
+    }).then((data) => {
+      if (data.status == 500) {
+        user_service.logoutClient(router);
+      } else {
+        return data.json()
+      }
+    }).then(async data => {
+      await setProducts(currentPage)
+    }).catch(err => {
       console.error('Error al eliminar el servicio:', error)
-    }
+    })
+
   }
 
   return (
