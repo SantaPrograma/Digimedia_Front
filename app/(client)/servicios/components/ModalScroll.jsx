@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 
+import { useEffect, useRef, useState } from 'react';
+import './modal.css';
 export default function ModalScroll({ text, fondo, title, serviceName }) {
   const modalRef = useRef(null);
   const [formData, setFormData] = useState({
@@ -11,25 +12,22 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
     servicio_id: serviceName,
   });
 
-  const hideModal = () => {
-    modalRef.current.classList.add('hidden');
-  };
-
-  let displayed = false;
-
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (!displayed) {
-        if (
-          window.innerHeight + window.scrollY >=
-          document.documentElement.scrollHeight
-        ) {
-          modalRef.current.classList.remove('hidden');
-          displayed = true;
-        }
-      }
-    });
+    const timer = setTimeout(() => {
+      modalRef.current.classList.remove('hidden');
+      modalRef.current.classList.add('fade-in');
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, []);
+
+  const hideModal = () => {
+    modalRef.current.classList.add('fade-out');
+    setTimeout(() => {
+      modalRef.current.classList.add('hidden');
+      modalRef.current.classList.remove('fade-in', 'fade-out');
+    }, 500);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -63,12 +61,10 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
     <div
       ref={modalRef}
       onClick={hideModal}
-      className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
+      className="bg-[rgba(0,0,0,0.43)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
     >
       <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        onClick={(e) => e.stopPropagation()}
         className="bg-black flex relative text-white rounded-2xl overflow-hidden"
       >
         <button onClick={hideModal} className="absolute top-4 right-4">
@@ -109,7 +105,6 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
               value={formData.correo}
               onChange={handleChange}
             />
-            {/* Incluye el servicio como un campo oculto */}
             <input
               type="hidden"
               name="servicio_id"

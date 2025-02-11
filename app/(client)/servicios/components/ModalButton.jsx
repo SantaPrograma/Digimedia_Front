@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-
+import './modal.css';
 export default function ModalClick({ text, fondo, title, serviceName }) {
   const modalRef = useRef(null);
 
@@ -11,13 +11,18 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
   const [correo, setEmail] = useState('');
 
   const hideModal = () => {
-    modalRef.current.classList.add('hidden');
+    modalRef.current.classList.add('fade-out'); 
+    setTimeout(() => {
+      modalRef.current.classList.add('hidden');
+      modalRef.current.classList.remove('fade-in', 'fade-out'); 
+    }, 500); 
   };
 
   useEffect(() => {
     window.addEventListener('click', (e) => {
       if (e.target.id === 'modal-button') {
-        modalRef.current.classList.remove('hidden');
+        modalRef.current.classList.remove('hidden'); 
+        modalRef.current.classList.add('fade-in'); 
       }
     });
   }, []);
@@ -59,9 +64,7 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
       className="bg-[rgb(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
     >
       <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        onClick={(e) => e.stopPropagation()}
         className="bg-black flex relative text-white rounded-2xl overflow-hidden bg-gradient-to-bl from-[#B721FF] to-[#21D4FD] p-8 gap-8"
       >
         <button onClick={hideModal} className="absolute top-4 right-4">
