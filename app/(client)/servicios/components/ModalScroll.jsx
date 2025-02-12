@@ -15,23 +15,27 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      backgroundRef.current.classList.remove('hidden');
-      backgroundRef.current.classList.add('fade-in');
-      modalRef.current.classList.add('modal-content');
+      if (backgroundRef.current && modalRef.current) {
+        backgroundRef.current.classList.remove('hidden');
+        backgroundRef.current.classList.add('fade-in');
+        modalRef.current.classList.add('modal-content');
+      }
     }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const hideModal = () => {
-    backgroundRef.current.classList.add('fade-out-bg');
-    modalRef.current.classList.add('fade-out-modal');
-    
-    setTimeout(() => {
-      backgroundRef.current.classList.add('hidden');
-      backgroundRef.current.classList.remove('fade-in', 'fade-out-bg');
-      modalRef.current.classList.remove('modal-content', 'fade-out-modal');
-    }, 500);
+    if (backgroundRef.current && modalRef.current) {
+      backgroundRef.current.classList.add('fade-out-bg');
+      modalRef.current.classList.add('fade-out-modal');
+
+      setTimeout(() => {
+        backgroundRef.current.classList.add('hidden');
+        backgroundRef.current.classList.remove('fade-in', 'fade-out-bg');
+        modalRef.current.classList.remove('modal-content', 'fade-out-modal');
+      }, 500);
+    }
   };
 
   const handleChange = (e) => {
@@ -66,7 +70,7 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
     <div
       ref={backgroundRef}
       onClick={hideModal}
-      className="seccionA bg-[rgba(0,0,0,0.43)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
+      className="seccionA bg-[rgba(0,0,0,0.43)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-[9998] hidden"
     >
       <div
         ref={modalRef}

@@ -56,7 +56,7 @@ export default function ModalClick({ text, fondo, title, serviceName }) {
     <div
       ref={backgroundRef}
       onClick={hideModal}
-      className="seccionA bg-[rgba(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
+      className="seccionA bg-[rgba(0,0,0,0.5)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-[9999] hidden"
     >
       <div
         ref={modalRef}
