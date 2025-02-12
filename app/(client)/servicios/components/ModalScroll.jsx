@@ -1,10 +1,11 @@
 'use client';
 
-
 import { useEffect, useRef, useState } from 'react';
 import './modal.css';
+
 export default function ModalScroll({ text, fondo, title, serviceName }) {
   const modalRef = useRef(null);
+  const backgroundRef = useRef(null);
   const [formData, setFormData] = useState({
     nombre: '',
     telefono: '',
@@ -14,18 +15,22 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      modalRef.current.classList.remove('hidden');
-      modalRef.current.classList.add('fade-in');
+      backgroundRef.current.classList.remove('hidden');
+      backgroundRef.current.classList.add('fade-in');
+      modalRef.current.classList.add('modal-content');
     }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const hideModal = () => {
-    modalRef.current.classList.add('fade-out');
+    backgroundRef.current.classList.add('fade-out-bg');
+    modalRef.current.classList.add('fade-out-modal');
+    
     setTimeout(() => {
-      modalRef.current.classList.add('hidden');
-      modalRef.current.classList.remove('fade-in', 'fade-out');
+      backgroundRef.current.classList.add('hidden');
+      backgroundRef.current.classList.remove('fade-in', 'fade-out-bg');
+      modalRef.current.classList.remove('modal-content', 'fade-out-modal');
     }, 500);
   };
 
@@ -59,11 +64,12 @@ export default function ModalScroll({ text, fondo, title, serviceName }) {
 
   return (
     <div
-      ref={modalRef}
+      ref={backgroundRef}
       onClick={hideModal}
-      className="bg-[rgba(0,0,0,0.43)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
+      className="seccionA bg-[rgba(0,0,0,0.43)] w-screen h-screen flex items-center justify-center fixed top-0 left-0 z-50 hidden"
     >
       <div
+        ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         className="bg-black flex relative text-white rounded-2xl overflow-hidden"
       >
