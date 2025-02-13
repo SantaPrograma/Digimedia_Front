@@ -32,6 +32,7 @@ export default function Page() {
   const currentPage = searchParams.get("page") || 1;
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   async function fetchContacts() {
@@ -63,6 +64,8 @@ export default function Page() {
 
     setData(allData);
     setTotalPages(Math.ceil(allData.length / 20));
+    setIsLoading(false);
+
   }
 
 
@@ -104,45 +107,49 @@ export default function Page() {
   return (
     <main className="p-4 overflow-scroll flex flex-col w-full h-[100vh] flex-1">
       <h2 className="text-4xl font-bold mb-4">Sección principal</h2>
-      <Table
-        headers={headers}
-        onDelete={false}
-        onUpdate={false}
-        data={data.slice((currentPage - 1) * 20, currentPage * 20).map((contact) => {
-          const [fecha, hora] = contact.fecha_hora.split(" "); 
+      {isLoading ? (
+        <div className="text-center text-lg font-semibold">Cargando...</div>
+      ) : (
+        <>
 
-          return {
-            ...contact,
-            "email mark": contact.emailMarck, 
-            fecha, 
-            hora, 
-            estado: contact.estado === 0 ? "Pendiente" : "Listo", 
+          <Table
+            headers={headers}
+            onDelete={false}
+            onUpdate={false}
+            data={data.slice((currentPage - 1) * 20, currentPage * 20).map((contact) => {
+              const [fecha, hora] = contact.fecha_hora.split(" ");
+              return {
+                ...contact,
+                "email mark": contact.emailMarck,
+                fecha,
+                hora,
+                estado: contact.estado === "0" ? "Pendiente" : "Listo",
+                acciones: (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => deleteContact(contact.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
+                    >
+                      Eliminar
+                    </button>
+                    <button
+                      onClick={() => toggleContactStatus(contact.id, contact.estado)}
+                      className={`px-3 py-1 rounded-md ${contact.estado === "0"
+                        ? "bg-yellow-500 hover:bg-yellow-700"
+                        : "bg-green-500 hover:bg-green-700"
+                        } text-white`}
+                    >
+                      {contact.estado === "0" ? "Marcar como Atendido" : "Marcar como Pendiente"}
+                    </button>
+                  </div>
+                ),
+              };
+            })}
 
-            acciones: (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => deleteContact(contact.id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
-                >
-                  Eliminar
-                </button>
-                <button
-                  onClick={() => toggleContactStatus(contact.id, contact.estado)}
-                  className={`px-3 py-1 rounded-md ${contact.estado === 0
-                    ? "bg-yellow-500 hover:bg-yellow-700"
-                    : "bg-green-500 hover:bg-green-700"
-                    } text-white`}
-                >
-                  {contact.estado === 0 ? "Marcar como Atendido" : "Marcar como Pendiente"}
-                </button>
-              </div>
-            ),
-          };
-        })}
-
-      />
-      <Pagination count={data.length} />
-
+          />
+          <Pagination count={data.length} />
+        </>
+      )}
     </main>
   );
 }
