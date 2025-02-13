@@ -63,10 +63,6 @@ export default function Page() {
 
     setData(allData);
     setTotalPages(Math.ceil(allData.length / 20));
-    console.log("Total de datos obtenidos:", allData.length);
-    console.log(allData);
-
-
   }
 
 

@@ -44,7 +44,6 @@ export default function Page() {
       }));
 
       setData(formattedData);
-      console.log(formattedData);
       setTotalItems(data.pagination.totalItems);
     }).catch(err => {
 
