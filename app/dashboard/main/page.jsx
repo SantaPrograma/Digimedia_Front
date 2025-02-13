@@ -34,19 +34,42 @@ export default function Page() {
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
 
-  async function fetchContacts(page = 1) {
-    try {
-      const response = await axios.get(`${API_BASE_URL}?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('token')}`,
+  async function fetchContacts() {
+    let page = 1;
+    let allData = [];
+    let hasMorePages = true;
+
+    while (hasMorePages) {
+      try {
+        const response = await axios.get(`${API_BASE_URL}?page=${page}`, {
+          headers: {
+            Authorization: `Bearer ${getCookie('token')}`,
+          }
+        });
+
+        if (response.data.data.length === 0) {
+          hasMorePages = false;
+          break;
         }
-      });
-      setData(response.data.data);
-      setTotalPages(response.data.last_page);
-    } catch (error) {
-      user_service.logoutClient(router);
+
+        allData = [...allData, ...response.data.data];
+        page++;
+
+      } catch (error) {
+        hasMorePages = false;
+        console.error("Error al obtener los datos:", error.message);
+      }
     }
+
+    setData(allData);
+    setTotalPages(Math.ceil(allData.length / 20));
+    console.log("Total de datos obtenidos:", allData.length);
+    console.log(allData);
+
+
   }
+
+
 
   async function deleteContact(id) {
     try {
@@ -89,30 +112,41 @@ export default function Page() {
         headers={headers}
         onDelete={false}
         onUpdate={false}
-        data={data.map((contact) => ({
-          ...contact,
-          acciones: (
-            <div className="flex gap-2">
-              <button
-                onClick={() => deleteContact(contact.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
-              >
-                Eliminar
-              </button>
-              <button
-                onClick={() => toggleContactStatus(contact.id, contact.estado)}
-                className={`px-3 py-1 rounded-md ${contact.estado === 0
-                  ? "bg-yellow-500 hover:bg-yellow-700"
-                  : "bg-green-500 hover:bg-green-700"
-                  } text-white`}
-              >
-                {contact.estado === 0 ? "Marcar como Atendido" : "Marcar como Pendiente"}
-              </button>
-            </div>
-          ),
-        }))}
+        data={data.slice((currentPage - 1) * 20, currentPage * 20).map((contact) => {
+          const [fecha, hora] = contact.fecha_hora.split(" "); 
+
+          return {
+            ...contact,
+            "email mark": contact.emailMarck, 
+            fecha, 
+            hora, 
+            estado: contact.estado === 0 ? "Pendiente" : "Listo", 
+
+            acciones: (
+              <div className="flex gap-2">
+                <button
+                  onClick={() => deleteContact(contact.id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
+                >
+                  Eliminar
+                </button>
+                <button
+                  onClick={() => toggleContactStatus(contact.id, contact.estado)}
+                  className={`px-3 py-1 rounded-md ${contact.estado === 0
+                    ? "bg-yellow-500 hover:bg-yellow-700"
+                    : "bg-green-500 hover:bg-green-700"
+                    } text-white`}
+                >
+                  {contact.estado === 0 ? "Marcar como Atendido" : "Marcar como Pendiente"}
+                </button>
+              </div>
+            ),
+          };
+        })}
+
       />
-      <Pagination count={totalPages} />
+      <Pagination count={data.length} />
+
     </main>
   );
 }
