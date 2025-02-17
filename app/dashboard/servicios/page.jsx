@@ -15,8 +15,8 @@ const headers = ['id', 'nombre'];
 export default function Page() {
   const searchParams = useSearchParams()
   const currentPage = searchParams.get('page') || 1
-  // const API_URL = "https://back.digimediamkt.com/api/servicios";
-  const API_URL = "http://127.0.0.1:8000/api/servicios"
+  const API_URL = "https://back.digimediamkt.com/api/servicios";
+  // const API_URL = "http://127.0.0.1:8000/api/servicios"
   const router = useRouter()
   const [data, setData] = useState([])
   const [count, setCount] = useState(0)

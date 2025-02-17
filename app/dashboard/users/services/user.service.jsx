@@ -1,7 +1,7 @@
 "use client"
 
-// const api_url = "https://back.digimediamkt.com/api/user"
-const api_url = "http://127.0.0.1:8000/api/user"
+const api_url = "https://back.digimediamkt.com/api/user"
+// const api_url = "http://127.0.0.1:8000/api/user"
 import { deleteCookie, getCookie } from "cookies-next";
 
 
