@@ -4,6 +4,7 @@ import Link from 'next/link';
 import AuthGuard from './components/AuthGuard';
 import Image from 'next/image';
 import user_service from './users/services/user.service';
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({ children }) {
 
@@ -64,13 +65,16 @@ export default function RootLayout({ children }) {
     </AuthGuard>
   );
 }
-
 function TableLink({ href, title }) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
   return (
     <li>
       <Link
         href={href}
-        className="flex gap-2 items-center rounded-lg hover:bg-[#eee] px-4 py-3"
+        className={`flex gap-2 items-center rounded-lg px-4 py-3 
+          hover:bg-[#eee] ${isActive ? "bg-[#ddd] font-bold" : ""}`}
       >
         <img src="/dashboard/section-icon.svg" alt="" width={20} />
         {title}

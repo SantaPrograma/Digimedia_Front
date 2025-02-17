@@ -36,10 +36,15 @@ export default function Page() {
         return data.json()
       }
     }).then(data => {
+      // Mapea los datos para renombrar las claves
+      const formattedData = data.data.map(item => ({
+        ...item,
+        email: item.correo, 
+        servicio: item.servicio_nombre 
+      }));
 
-      setData(data.data);
+      setData(formattedData);
       setTotalItems(data.pagination.totalItems);
-
     }).catch(err => {
 
     }).finally(() => {
