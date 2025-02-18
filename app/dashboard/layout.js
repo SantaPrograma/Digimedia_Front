@@ -2,20 +2,20 @@
 import '../globals.css';
 import Link from 'next/link';
 import AuthGuard from './components/AuthGuard';
-import Image from 'next/image';
 import user_service from './users/services/user.service';
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function RootLayout({ children }) {
 
+  const router = useRouter();
 
+ 
   const handleLogout = async () => {
 
     await user_service.logoutServer()
       .then(data => {
-        user_service.logoutClient()
+        user_service.logoutClient(router)
       })
-
   };
   return (
     <AuthGuard>
@@ -30,11 +30,10 @@ export default function RootLayout({ children }) {
             onClick={handleLogout}
             className="flex gap-2 bg-black text-white px-4 py-3 rounded-lg justify-center mb-5"
           >
-            <Image
+            <img
               src="/dashboard/logout-icon.svg"
               alt="Logout icon"
-              width={20}
-              height={20}
+              className='w-[20px] h-[20px]'
             />
             Cerrar sesión
           </button>
@@ -42,13 +41,9 @@ export default function RootLayout({ children }) {
           <nav>
             <ul className="flex flex-col gap-1">
               <TableLink title="Sección Principal" href="/dashboard/main" />
-              <TableLink
-                title="Libro de Reclamaciones"
-                href="/dashboard/reclamaciones"
-              />
+              <TableLink title="Libro de Reclamaciones" href="/dashboard/reclamaciones" />
               <TableLink title="Modales" href="/dashboard/modales" />
-              <TableLink title="Usuarios" href="/dashboard/users" />
-              <TableLink title="Servicios" href="/dashboard/servicios" />
+              {user_service.isAdmin() ? <TableLink title="Usuarios" href="/dashboard/users" /> : null }
             </ul>
           </nav>
 

@@ -9,7 +9,7 @@ import { getCookie } from "cookies-next";
 import user_service from '../users/services/user.service';
 
 
-const headers = ['id', 'nombre', 'telefono', 'email', 'servicio', 'acciones'];
+const headers = ['id', 'nombre', 'telefono', 'email', 'servicio', "fecha_registro" ,'acciones'];
 
 export default function Page() {
   const searchParams = useSearchParams();

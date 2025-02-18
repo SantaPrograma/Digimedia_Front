@@ -84,6 +84,10 @@ const user_service = {
     logoutClient: (router) => {
         deleteCookie('token');
         router.push('/login');
+    },
+
+    isAdmin: () => {
+        return JSON.parse(getCookie('user')).admin == 1 ? true : false;
     }
 }
 
