@@ -87,6 +87,9 @@ const user_service = {
     },
 
     isAdmin: () => {
+
+        if (!getCookie('user')) return false;
+
         return JSON.parse(getCookie('user')).admin == 1 ? true : false;
     }
 }
