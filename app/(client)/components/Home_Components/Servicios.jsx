@@ -20,7 +20,7 @@ function services() {
                         <Link href="/servicios/gestion-redes" className="service">
                             <img src="/image-home/icon2.svg" alt="Gestión de Redes Sociales" />
                             <h3>Gestión de Redes Sociales</h3>
-                            <p>"Aumenta tu presencia online y conecta con tu audiencia"</p>
+                            <p>"Aumenta tu presencia online y conectamos con tu audiencia"</p>
                         </Link>
 
                         <Link href="/servicios/branding-desing" className="service">
@@ -32,7 +32,7 @@ function services() {
                         <Link href="/servicios/marketing-gestion" className="service">
                             <img src="/image-home/icon4.svg" alt="Marketing y Gestión Digital" />
                             <h3>Marketing y Gestión Digital</h3>
-                            <p>"Aumenta tu presencia en redes sociales con estrategias de marketing digital"</p>
+                            <p>"Aumenta tu presencia en redes sociales y con marketing digital"</p>
                         </Link>
                     </div>
                 </div>
