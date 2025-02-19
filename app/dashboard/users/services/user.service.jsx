@@ -1,7 +1,7 @@
 "use client"
 
-// const api_url = "https://back.digimediamkt.com/api/user"
-const api_url = "http://127.0.0.1:8000/api/user"
+const api_url = "https://back.digimediamkt.com/api/user"
+// const api_url = "http://127.0.0.1:8000/api/user"
 import { deleteCookie, getCookie } from "cookies-next";
 
 
@@ -84,6 +84,13 @@ const user_service = {
     logoutClient: (router) => {
         deleteCookie('token');
         router.push('/login');
+    },
+
+    isAdmin: () => {
+
+        if (!getCookie('user')) return false;
+
+        return JSON.parse(getCookie('user')).admin == 1 ? true : false;
     }
 }
 

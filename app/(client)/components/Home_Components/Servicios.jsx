@@ -1,9 +1,8 @@
-
 import React from 'react';
 import './services.css'
-
-function services(){
-    return(
+import Link from 'next/link';
+function services() {
+    return (
         <section id="services">
             <div className="services-main">
                 <div className="services-text">
@@ -12,26 +11,29 @@ function services(){
                 </div>
                 <div className="services-4">
                     <div className="services">
-                        <div className="service">
-                            <img src="/image-home/icon1.svg" alt="" />
+                        <Link href="/servicios/desing-desarrollo" className="service">
+                            <img src="/image-home/icon1.svg" alt="Diseño y Desarrollo Web" />
                             <h3>Diseño y Desarrollo Web</h3>
-                            <p>"Creamos sitios atractivos y funcionales que represetan tu marca"</p>
-                        </div>
-                        <div className="service">
-                            <img src="/image-home/icon2.svg" alt="" />
+                            <p>"Creamos sitios atractivos y funcionales que representan tu marca"</p>
+                        </Link>
+
+                        <Link href="/servicios/gestion-redes" className="service">
+                            <img src="/image-home/icon2.svg" alt="Gestión de Redes Sociales" />
                             <h3>Gestión de Redes Sociales</h3>
                             <p>"Aumenta tu presencia online y conectamos con tu audiencia"</p>
-                        </div>
-                        <div className="service">
-                            <img src="/image-home/icon3.svg" alt="" />
+                        </Link>
+
+                        <Link href="/servicios/branding-desing" className="service">
+                            <img src="/image-home/icon3.svg" alt="Branding y Diseño" />
                             <h3>Branding y Diseño</h3>
                             <p>"Construimos una identidad visual fuerte y memorable"</p>
-                        </div>
-                        <div className="service">
-                            <img src="/image-home/icon4.svg" alt="" />
-                            <h3>Gestión de Redes Sociales</h3>
-                            <p>"Aumenta tu presencia en redes sociales y con marketing digital""</p>
-                        </div>
+                        </Link>
+
+                        <Link href="/servicios/marketing-gestion" className="service">
+                            <img src="/image-home/icon4.svg" alt="Marketing y Gestión Digital" />
+                            <h3>Marketing y Gestión Digital</h3>
+                            <p>"Aumenta tu presencia en redes sociales y con marketing digital"</p>
+                        </Link>
                     </div>
                 </div>
             </div>
