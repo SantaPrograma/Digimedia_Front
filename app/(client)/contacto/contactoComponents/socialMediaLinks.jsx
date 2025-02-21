@@ -2,9 +2,6 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-// Importa el componente y los iconos que vas a usar
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faInstagram, faLinkedin, faTiktok, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const SocialMediaLinks = () => {
   const ref = useRef(null);
@@ -24,27 +21,32 @@ const SocialMediaLinks = () => {
         <div className="contenedor-redes">
           <div className="red">
             <a href="https://www.facebook.com/DigiMedia.Marketing1" target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faFacebook} size="2x" />
+              <img src="/headerFooter/facebook.png" alt="Facebook" />
+              Facebook
             </a>
           </div>
           <div className="red">
             <a href="https://www.instagram.com/digimediamkt/" target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faInstagram} size="2x" />
+              <img src="/headerFooter/instagram.png" alt="Instagram" />
+              Instagram
             </a>
           </div>
           <div className="red">
             <a href="https://www.linkedin.com/in/digimedia-marketing/" target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faLinkedin} size="2x" />
+              <img src="/headerFooter/linkedin.png" alt="LinkedIn" />
+              LinkedIn
             </a>
           </div>
           <div className="red">
             <a href="https://www.tiktok.com/@digimediamkt" target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faTiktok} size="2x" />
+              <img src="/headerFooter/tiktok.png" alt="TikTok" />
+              TikTok
             </a>
           </div>
           <div className="red">
             <a href="https://www.youtube.com/@digimediamarketing" target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faYoutube} size="2x" />
+              <img src="/headerFooter/youtube.png" alt="YouTube" />
+              YouTube
             </a>
           </div>
         </div>
